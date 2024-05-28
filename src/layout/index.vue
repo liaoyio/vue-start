@@ -1,67 +1,129 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { toggleDark } from '@/hooks/dark'
+import { h } from 'vue'
+import { SearchOutlined } from '@ant-design/icons-vue'
+import { useAppStore } from '@/store'
 
-const radioVal = ref('New York')
-const switchVal = ref(true)
-const sliderVal = ref(50)
+import type { SelectProps } from 'ant-design-vue'
 
-function onClick() {
-  // 配置好自动导入后，ts 中使用 ElMessage, ElNotification 不需要再使用 import { ElNotification, ElNotification } from 'element-plus' ,否则会出现样式丢失的问题，直接使用即可
-  ElNotification({
-    type: 'success',
-    title: '已成功发送邮件',
-    message: '验证码区分大小写，有效期5分钟',
-    duration: 3000,
-  })
+const app = useAppStore()
+
+const value1 = ref<number>(0)
+const value2 = ref<[number, number]>([20, 50])
+const disabled = ref<boolean>(false)
+const checked = ref<boolean>(false)
+
+const marks = ref<Record<number, any>>({
+  0: '0°C',
+  26: '26°C',
+  37: '37°C',
+  100: {
+    style: {
+      color: '#f50',
+    },
+    label: '100°C',
+  },
+})
+const popupScroll = () => {
+  console.log('popupScroll')
 }
+const size = ref<SelectProps['size']>('middle')
+const value_1 = ref('a1')
+const value_2 = ref(['a1', 'b2'])
+const value_3 = ref(['a1', 'b2'])
+const options = [...Array.from({ length: 25 })].map((_, i) => ({ value: (i + 10).toString(36) + (i + 1) }))
 </script>
 
 <template>
-  <div class="container-c px-7">
-    <h1>Custom theme example (on demand)</h1>
-    <button
-      class="border-none w-full bg-transparent cursor-pointer"
-      style="height: var(--ep-menu-item-height)"
-      @click="toggleDark()"
-    >
+  <div class="container px-7 mx-auto">
+    <button class="border-none w-full bg-transparent cursor-pointer text-inherit" @click="app.toggleTheme">
       <i inline-flex i="dark:ep-moon ep-sunny" />
     </button>
 
-    <el-row>
-      <el-button @click="onClick">Default</el-button>
-      <el-button type="primary" @click="onClick">Primary</el-button>
-      <el-button type="success" @click="onClick">Success</el-button>
-      <el-button type="info" @click="onClick">Info</el-button>
-      <el-button type="warning" @click="onClick">Warning</el-button>
-      <el-button type="danger" @click="onClick">Danger</el-button>
-    </el-row>
+    <div class="size-25 flex justify-center items-center rounded c-white bg-sky dark:bg-sky-6 el-7 el-op-100" />
+    <div
+      class="size-25 flex justify-center items-center rounded animated animated-bounce-in c-white bg-sky dark:bg-sky-6"
+    >
+      Animated
+    </div>
 
-    <el-radio-group v-model="radioVal">
-      <el-radio-button label="New York" />
-      <el-radio-button label="Washington" />
-      <el-radio-button label="Los Angeles" />
-      <el-radio-button label="Chicago" />
-    </el-radio-group>
+    <a-space wrap>
+      <a-button type="primary">Primary Button</a-button>
+      <a-button>Default Button</a-button>
+      <a-button type="dashed">Dashed Button</a-button>
+      <a-button type="text">Text Button</a-button>
+      <a-button type="link">Link Button</a-button>
+    </a-space>
+
+    <a-space direction="vertical">
+      <a-space warp>
+        <a-tooltip title="search">
+          <a-button type="primary" shape="circle" :icon="h(SearchOutlined)" />
+        </a-tooltip>
+        <a-button type="primary" shape="circle">A</a-button>
+        <a-button type="primary" :icon="h(SearchOutlined)">Search</a-button>
+        <a-tooltip title="search">
+          <a-button shape="circle" :icon="h(SearchOutlined)" />
+        </a-tooltip>
+        <a-button :icon="h(SearchOutlined)">Search</a-button>
+      </a-space>
+      <a-space warp>
+        <a-tooltip title="search">
+          <a-button shape="circle" :icon="h(SearchOutlined)" />
+        </a-tooltip>
+        <a-button :icon="h(SearchOutlined)">Search</a-button>
+        <a-tooltip title="search">
+          <a-button type="dashed" shape="circle" :icon="h(SearchOutlined)" />
+        </a-tooltip>
+        <a-button type="dashed" :icon="h(SearchOutlined)">Search</a-button>
+        <a-button :icon="h(SearchOutlined)" href="https://www.google.com" />
+      </a-space>
+    </a-space>
 
     <div>
-      <el-switch v-model="switchVal" />&nbsp;
-      <el-switch v-model="switchVal" active-color="#13ce66" inactive-color="#ff4949" />
+      <a-slider id="test" v-model:value="value1" :disabled="disabled" />
+      <a-slider v-model:value="value2" range :disabled="disabled" />
+      Disabled:
+      <a-switch v-model:checked="disabled" size="small" />
+      <a-slider v-model:value="value1" :marks="marks">
+        <template #mark="{ label, point }">
+          <template v-if="point === 100">
+            <strong>{{ label }}</strong>
+          </template>
+          <template v-else>{{ label }}</template>
+        </template>
+      </a-slider>
     </div>
 
     <div>
-      <el-select>
-        <el-option value="test">test</el-option>
-      </el-select>
-      &nbsp;
-      <el-date-picker />
+      <a-switch v-model:checked="checked" />
+      <a-radio-group v-model:value="size">
+        <a-radio-button value="large">Large</a-radio-button>
+        <a-radio-button value="middle">Middle</a-radio-button>
+        <a-radio-button value="small">Small</a-radio-button>
+      </a-radio-group>
+
+      <br />
+      <br />
+      <a-space direction="vertical">
+        <a-select v-model:value="value_1" :size="size" style="width: 200px" :options="options" />
+        <a-select
+          v-model:value="value_2"
+          :options="options"
+          mode="multiple"
+          :size="size"
+          placeholder="Please select"
+          style="width: 200px"
+          @popup-scroll="popupScroll"
+        />
+        <a-select
+          v-model:value="value_3"
+          :options="options"
+          mode="tags"
+          :size="size"
+          placeholder="Please select"
+          style="width: 200px"
+        />
+      </a-space>
     </div>
-
-    <el-slider v-model="sliderVal" />
-
-    <p>
-      It is a example built by vite.&nbsp; More info see
-      <a href="https://github.com/element-plus/unplugin-element-plus" target="_blank">unplugin-element-plus</a>.
-    </p>
   </div>
 </template>

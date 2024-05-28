@@ -1,2 +1,21 @@
-// import dark theme
-@use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
+:root{
+  --page-bg-color: #fff;
+  --page-text-color: #000;
+}
+
+.dark {
+  --page-bg-color: #000;
+  --page-text-color: #fff;
+}
+
+body{
+  background: var(--page-bg-color);
+  color: var(--page-text-color);
+}
+
+.dark {
+  body{
+    background: var(--page-bg-color);
+    color: var(--page-text-color);
+  }
+}
