@@ -1,0 +1,66 @@
+{
+  "name": "montcache-console",
+  "version": "0.10.0",
+  "type": "module",
+  "scripts": {
+    "dev:mock": "vite --open --mode mock",
+    "dev": "vite --open --mode development",
+    "dev:linux": "vite --mode development",
+    "build": "vue-tsc --noEmit && vite build --mode release",
+    "build:type": "vue-tsc --noEmit",
+    "build:site": "vue-tsc --noEmit && vite build --mode site",
+    "preview": "vite preview",
+    "prettier": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "pnpm run lint --fix",
+    "prepare": "husky install",
+    "release": "plop --plopfile scripts/release.cjs",
+    "deps:fresh": "plop --plopfile scripts/deps-fresh.cjs"
+  },
+  "dependencies": {
+    "@types/node": "^20.12.7",
+    "@vueuse/components": "^10.9.0",
+    "@vueuse/core": "^10.9.0",
+    "axios": "^0.24.0",
+    "element-plus": "^2.7.3",
+    "mitt": "^3.0.0",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "vue": "^3.4.21",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@sxzz/eslint-config": "^3.9.1",
+    "@types/nprogress": "^0.2.3",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "autoprefixer": "^10.4.19",
+    "changelogen": "^0.5.5",
+    "eslint": "8.56.0",
+    "husky": "^9.0.10",
+    "lint-staged": "^15.2.2",
+    "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
+    "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "sass": "^1.77.2",
+    "tailwindcss": "^3.4.3",
+    "typescript": "~5.4.3",
+    "unplugin-auto-import": "^0.17.6",
+    "unplugin-vue-components": "^0.27.0",
+    "vite": "^5.2.8",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-imagemin": "^0.6.1",
+    "vite-plugin-mock": "2.9.8",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-plugin-vue-devtools": "^7.0.27",
+    "vite-svg-loader": "^5.1.0",
+    "vue-tsc": "^2.0.11"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "prettier --write"
+    ]
+  }
+}

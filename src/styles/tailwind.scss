@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities{
+  .flex_cc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex_c {
+    display: flex;
+    align-items: center;
+  }
+}
