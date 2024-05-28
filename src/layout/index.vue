@@ -20,6 +20,13 @@ function onClick() {
 <template>
   <div class="container-c px-7">
     <h1>Custom theme example (on demand)</h1>
+    <button
+      class="border-none w-full bg-transparent cursor-pointer"
+      style="height: var(--ep-menu-item-height)"
+      @click="toggleDark()"
+    >
+      <i inline-flex i="dark:ep-moon ep-sunny" />
+    </button>
 
     <el-row>
       <el-button @click="onClick">Default</el-button>
