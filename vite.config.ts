@@ -1,6 +1,5 @@
 import { resolve } from 'node:path'
 
-import { URL, fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -13,7 +12,11 @@ import { viteMockServe } from 'vite-plugin-mock'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import svgLoader from 'vite-svg-loader'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-// import I18N from '@intlify/unplugin-vue-i18n/vite'
+// import I18N from '@intlify/unplugin-vue-i18n/vite
+
+import UnoCss from 'unocss/vite'
+
+const pathSrc = resolve(__dirname, 'src')
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd()) as ImportMetaEnv
@@ -38,6 +41,7 @@ export default defineConfig(({ command, mode }) => {
     },
     plugins: [
       vue(),
+      UnoCss(),
       vueJsx(),
       svgLoader(),
       createSvgIconsPlugin({
@@ -95,7 +99,7 @@ export default defineConfig(({ command, mode }) => {
     ],
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@': `${pathSrc}/`,
       },
     },
     css: {

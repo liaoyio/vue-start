@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toggleDark } from '@/hooks/dark'
 
 const radioVal = ref('New York')
 const switchVal = ref(true)
@@ -19,10 +20,6 @@ function onClick() {
 <template>
   <div class="container-c px-7">
     <h1>Custom theme example (on demand)</h1>
-
-    <button class="border-none w-full bg-transparent cursor-pointer" style="height: var(--ep-menu-item-height)">
-      <i inline-flex i="dark:ep-moon ep-sunny" />
-    </button>
 
     <el-row>
       <el-button @click="onClick">Default</el-button>

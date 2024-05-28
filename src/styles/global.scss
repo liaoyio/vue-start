@@ -1,19 +1,2 @@
-* {
-  box-sizing: border-box;
-}
-
-
-.container-c {
-  text-align: center;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  min-height: 90vh;
-}
-
-a {
-  color: var(--el-color-primary);
-  text-decoration: none;
-}
+// import dark theme
+@use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
