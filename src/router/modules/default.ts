@@ -35,14 +35,18 @@ export const defaultRoutes: RouteRecordRaw[] = [
     path: '/',
     name: 'Home',
     component: Layout,
-    redirect: '/home',
+    redirect: '/mont-cache',
     meta: { hidden: false },
     children: [
       {
-        path: '/home',
-        component: () => import('@/pages/home/index.vue'),
-        name: 'Home',
-        meta: { title: '首页', icon: 'icon-dashboard', affix: true, hidden: false },
+        path: '/mont-cache',
+        component: () => import('@/pages/cache/index.vue'),
+        name: 'MontCache',
+      },
+      {
+        path: '/cluster',
+        component: () => import('@/pages/cluster/index.vue'),
+        name: 'Cluster',
       },
     ],
   },

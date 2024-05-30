@@ -35,6 +35,7 @@
     "@iconify-json/ep": "^1.1.15",
     "@sxzz/eslint-config": "^3.9.1",
     "@types/nprogress": "^0.2.3",
+    "@unocss/reset": "^0.60.3",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "changelogen": "^0.5.5",

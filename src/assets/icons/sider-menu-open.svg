@@ -1,0 +1,11 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="18"
+  height="18">
+  <defs>
+    <symbol id="icon-indent-Navigation" viewBox="0 0 1024 1024">
+      <path
+        d="M828.8256 193.28a30.72 30.72 0 1 1 0 61.44H195.1744a30.72 30.72 0 1 1 0-61.44h633.6zM598.4256 481.28a30.72 30.72 0 1 1 0 61.44H195.1232a30.72 30.72 0 1 1 0-61.44h403.2zM859.5456 800a30.72 30.72 0 0 0-30.72-30.72H195.1744a30.72 30.72 0 0 0 0 61.44h633.6a30.72 30.72 0 0 0 30.72-30.72zM738.5088 420.352a28.7744 28.7744 0 0 0-44.0832 24.4224v136.6016c0 22.6304 24.8832 36.4032 44.032 24.4224l109.0048-68.3008a28.8256 28.8256 0 0 0 0-48.7936L738.5088 420.352z">
+      </path>
+    </symbol>
+  </defs>
+  <use xlink:href="#icon-indent-Navigation" fill="currentColor"></use>
+</svg>

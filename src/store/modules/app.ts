@@ -1,16 +1,18 @@
-import { theme } from 'ant-design-vue'
 import { defineStore } from 'pinia'
-import { useDark, useToggle } from '@vueuse/core'
+import { useColorMode, useDark, useToggle } from '@vueuse/core'
+const { system, store } = useColorMode()
 
 export interface AppState {
   theme: 'light' | 'dark'
+  mode: 'dark' | 'light' | 'auto'
   themeColor: string
 }
 
 export const useAppStore = defineStore('app', {
   state: (): AppState => ({
     theme: 'light',
-    themeColor: '#00b96b',
+    themeColor: 'rgb(12, 166, 242)',
+    mode: store.value === 'auto' ? system.value : store.value,
   }),
   actions: {
     toggleTheme() {
@@ -18,6 +20,9 @@ export const useAppStore = defineStore('app', {
       const toggleDark = useToggle(isDark)
       toggleDark()
       this.theme = isDark.value ? 'dark' : 'light'
+    },
+    themeswitcher(mode: 'dark' | 'light' | 'auto') {
+      this.mode = mode
     },
   },
   persist: true,

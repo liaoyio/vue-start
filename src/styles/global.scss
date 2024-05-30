@@ -1,14 +1,14 @@
 :root{
-  --page-bg-color: #fff;
-  --page-text-color: #000;
+  background-color: rgb(255, 255, 255);
+  color: rgb(51, 51, 51);
 }
 
 .dark {
-  --page-bg-color: #000;
-  --page-text-color: #fff;
+  --page-bg-color: rgb(17, 17, 17);
+  --page-text-color: rgb(232, 232, 232);
 }
 
-body{
+body {
   background: var(--page-bg-color);
   color: var(--page-text-color);
 }
@@ -19,3 +19,23 @@ body{
     color: var(--page-text-color);
   }
 }
+
+ul { list-style-type: none; }
+
+
+:root{
+
+  --icon-color: #000;
+  ---gray-bg-color: #f9f9f9;
+  --tooltip-color: #333333;
+  // #141517
+}
+
+.dark{
+  --icon-color: #000;
+  ---gray-bg-color: #141517;
+  --tooltip-color: #e8e8e8;
+}
+
+
+@import './antd.scss'
