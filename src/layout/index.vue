@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { PieChartOutlined } from '@ant-design/icons-vue'
+import IconCluster from '@/assets/icons/menu-cluster.svg?component'
+import IconService from '@/assets/icons/menu-data-service.svg?component'
 import SiderAntd from './components/Sider-Antd.vue'
 import SiderButtom from './components/Sider.vue'
 import type { MenuClickEventHandler } from 'ant-design-vue/es/menu/src/interface'
-
 const router = useRouter()
 
 const selectedKeys = ref<string[]>([router.currentRoute.value.path.split('/')[1]])
@@ -20,13 +21,13 @@ const handelMenuChange: MenuClickEventHandler = ({ key }) => {
 const items = reactive([
   {
     key: 'mont-cache',
-    icon: () => h(PieChartOutlined),
+    icon: () => h(IconService),
     label: 'MontCache',
     title: 'MontCache',
   },
   {
     key: 'cluster',
-    icon: () => h(PieChartOutlined),
+    icon: () => h(IconCluster),
     label: 'Cluster',
     title: 'Cluster',
   },
@@ -92,16 +93,9 @@ const handleMouseLeave = () => {
 </template>
 
 <style lang="scss" scoped>
-.dark {
-  .mt-sider {
-    background-color: rgb(26, 27, 30);
-    border-right: 1px solid rgb(53, 53, 53);
-  }
-}
-
 .mt-sider {
-  background-color: rgb(255, 255, 255);
-  border-right: 1px solid rgb(237, 237, 237);
+  background-color: var(--sider-nav-bg);
+  border-right: 1px solid var(--sider-nav-border);
   color: var(--page-text-color);
 }
 
@@ -116,13 +110,5 @@ const handleMouseLeave = () => {
   max-width: 57px !important;
   min-width: 57px !important;
   width: 57px !important;
-
-  .ant-menu-item {
-    // margin-left: auto;
-    // margin-right: auto;
-    // width: 40px;
-    // height: 40px;
-    // padding-left: 12px;
-  }
 }
 </style>

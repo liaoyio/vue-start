@@ -1,5 +1,6 @@
-import SvgIcon from './svg-icon/index.vue'
-import MenuItem from './ui/menu/item.vue'
+import SvgIcon from './SvgIcon.vue'
+import MenuItem from './Menu-Item.vue'
+
 import type { App } from 'vue'
 
 export default {

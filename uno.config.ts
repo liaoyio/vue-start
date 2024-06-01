@@ -11,10 +11,15 @@ import {
 import { presetExtra } from 'unocss-preset-extra'
 
 export default defineConfig({
-  shortcuts: [{ flex_c: 'flex items-center' }, { flex_cc: 'flex items-center justify-center' }],
+  shortcuts: [
+    { flex_c: 'flex items-center' },
+    { flex_cc: 'flex_c justify-center' },
+    { flex_lr: 'flex_c justify-between' },
+  ],
   theme: {
     colors: {
       link: 'rgb(12, 166, 242)',
+      primary: '#0ca6f2',
     },
     extend: {
       textShadow: {

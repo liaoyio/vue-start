@@ -1,11 +1,35 @@
-:root{
-  background-color: rgb(255, 255, 255);
-  color: rgb(51, 51, 51);
+@import './antd.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+:root {
+  /* 导航菜单背景 */
+  --sider-nav-bg: #fff;
+  /* 导航菜单边框 */
+  --sider-nav-border: rgb(237, 237, 237);
+
+  --page-bg-color: #fff;
+  --page-text-color: rgb(51, 51, 51);
+
+  /* 基础提示文字颜色 */
+  --tips-text-color: rgb(85, 85, 85);
+  --tips-text-8-color: rgb(115, 115, 115);
+  ;
 }
 
 .dark {
+  --sider-nav-bg: rgb(26, 27, 30);
+  --sider-nav-border: rgb(53, 53, 53);
+
   --page-bg-color: rgb(17, 17, 17);
   --page-text-color: rgb(232, 232, 232);
+
+  /* 基础提示文字颜色 */
+  --tips-text-color: rgb(198, 198, 198);
+  --tips-text-8-color: rgb(136, 136, 136);
 }
 
 body {
@@ -14,28 +38,103 @@ body {
 }
 
 .dark {
-  body{
+  body {
     background: var(--page-bg-color);
     color: var(--page-text-color);
   }
 }
 
-ul { list-style-type: none; }
+ul {
+  list-style-type: none;
+}
 
 
-:root{
-
+:root {
   --icon-color: #000;
   ---gray-bg-color: #f9f9f9;
   --tooltip-color: #333333;
-  // #141517
 }
 
-.dark{
+.dark {
   --icon-color: #000;
   ---gray-bg-color: #141517;
   --tooltip-color: #e8e8e8;
 }
 
 
-@import './antd.scss'
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+
+  .tips {
+    color: var(--tips-text-color);
+  }
+
+  .tips-8 {
+    color: var(--tips-text-8-color);
+  }
+}
+
+.link {
+  color: rgb(12, 166, 242) !important;
+
+  &:hover {
+    color: rgb(12, 166, 242) !important;
+  }
+}
+
+a.ac-link {
+  word-break: break-all;
+  font-weight: 600;
+  color: #0ca6f2;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+
+  &:hover {
+    color: #19b3ff;
+    text-decoration: underline;
+  }
+}
+
+
+.mt-header {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: sticky;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  padding-right: 24px;
+  padding-left: 24px;
+  height: 56px;
+}
+
+.bento-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  li {
+    flex-shrink: 0;
+    flex: 0 0 25%;
+    padding: 8px;
+    max-width: 25%;
+  }
+}
+
+.flex-50 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}

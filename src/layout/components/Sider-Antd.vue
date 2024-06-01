@@ -17,7 +17,7 @@ const overlayInnerStyle: CSSProperties = {
   <a-menu :nz-tooltip-title="null" style="background: transparent; border-right: none" :selectable="false">
     <a-popover trigger="click" placement="right" :arrow="false" :overlay-inner-style="overlayInnerStyle">
       <template #content>
-        <div class="w-55 font-300">
+        <div class="w-55">
           <div>
             <div class="text-[#bbbbbb] dark:text-[#707070] text-xs font-400 px-3 my-2">Projects (click to switch)</div>
 
@@ -25,7 +25,7 @@ const overlayInnerStyle: CSSProperties = {
             <a-divider class="my-2" />
 
             <menu-item class="px-3">
-              <div class="flex items-center gap-2 font-300">
+              <div class="flex items-center gap-2">
                 <SvgIcon name="setting" size="14" />
                 Project Settings
               </div>
@@ -43,7 +43,7 @@ const overlayInnerStyle: CSSProperties = {
 
     <a-popover trigger="click" placement="right" :arrow="false" class="ml-3" :overlay-inner-style="overlayInnerStyle">
       <template #content>
-        <div class="w-55 font-300">
+        <div class="w-55">
           <div>
             <div class="text-[#bbbbbb] dark:text-[#707070] text-xs font-400 px-3 my-2">
               Organizations (click to switch)
@@ -53,7 +53,7 @@ const overlayInnerStyle: CSSProperties = {
             <a-divider class="my-2" />
 
             <menu-item class="px-3">
-              <div class="flex items-center gap-2 font-300">
+              <div class="flex items-center gap-2">
                 <SvgIcon name="setting" size="14" />
                 Organization Settings
               </div>
@@ -71,7 +71,7 @@ const overlayInnerStyle: CSSProperties = {
 
     <a-popover trigger="click" placement="right" :arrow="false" :overlay-inner-style="overlayInnerStyle">
       <template #content>
-        <div class="w-55 font-300">
+        <div class="w-55">
           <div class="flex flex-col items-center p-2 gap-y-1">
             <div class="font-600 text-lg">YoaiL</div>
             <div>2417276459@qq.com</div>
@@ -79,13 +79,13 @@ const overlayInnerStyle: CSSProperties = {
           <a-divider class="my-2" />
 
           <menu-item class="px-3">
-            <div class="flex items-center gap-2 font-300">
+            <div class="flex items-center gap-2">
               <SvgIcon name="setting" size="14" />
               Account Settings
             </div>
           </menu-item>
           <menu-item class="px-3">
-            <div class="flex items-center gap-2 font-300">
+            <div class="flex items-center gap-2">
               <SvgIcon name="logout" size="14" />
               Logout
             </div>

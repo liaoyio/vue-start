@@ -14,7 +14,10 @@ const themeAlgorithm = computed(() => {
 })
 
 const $theme = computed(() => ({
-  token: { colorPrimary: app.themeColor },
+  token: {
+    colorPrimary: app.themeColor,
+    fontFamily: 'Inter',
+  },
   algorithm: themeAlgorithm.value,
 }))
 
@@ -32,10 +35,17 @@ watchEffect(() => {
       ...$theme,
       components: {
         Button: {
-          borderRadius: 4,
+          borderRadius: 8,
         },
         Segmented: {
           borderRadius: 8,
+          fontSizeLG: 14,
+        },
+        Select: {
+          fontSizeLG: 14,
+        },
+        Input: {
+          fontSizeLG: 14,
         },
       },
     }"

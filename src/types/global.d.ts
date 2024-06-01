@@ -1,5 +1,5 @@
 import type SvgIcon from '@/components/svg-icon/index.vue'
-import type MenuItem from '@/components/ui/menu/item.vue'
+import type MenuItem from '@/components/global/item.vue'
 
 declare module 'vue' {
   export interface GlobalComponents {
