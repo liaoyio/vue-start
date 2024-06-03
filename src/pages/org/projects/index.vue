@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import router from '@/router'
 import updateProjectModal from './components/undate.vue'
 import inviteUserModal from './components/invite-user.vue'
 

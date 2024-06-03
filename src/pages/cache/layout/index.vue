@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { on } from 'node:events'
 import type { ItemType, MenuProps } from 'ant-design-vue'
 
 const activeRoute = ref<string[]>(['overview'])
@@ -8,6 +7,10 @@ const items: ItemType[] = reactive([
   {
     key: 'overview',
     label: 'Overview',
+  },
+  {
+    key: 'shards',
+    label: 'Shards',
   },
   {
     key: 'connect',

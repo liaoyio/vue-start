@@ -9,7 +9,7 @@ const props = defineProps({
 
 const open = ref<boolean>(false)
 const loading = ref<boolean>(false)
-defineEmits(['on-del'])
+defineEmits(['onDel'])
 
 const setModal = (value: boolean) => (open.value = value)
 const setLoading = (value: boolean) => (loading.value = value)
@@ -19,6 +19,8 @@ const titleText = computed(() => {
   switch (props.type) {
     case 'del-cache':
       return 'Are you sure to delete the cache service?'
+    case 'del-cluster':
+      return 'Are you sure to delete the cluster?'
     default:
       return props.title
   }
@@ -36,6 +38,10 @@ const titleText = computed(() => {
     <div class="content">
       <template v-if="type">
         <p v-if="type === 'del-cache'">
+          All resources and cached data of the cluster will be deleted, and the current warehouse and stored data will
+          also be deleted. Are you sure you want to delete it?
+        </p>
+        <p v-if="type === 'del-cluster'">
           All resources and cached data of the cluster will be deleted, and the current warehouse and stored data will
           also be deleted. Are you sure you want to delete it?
         </p>

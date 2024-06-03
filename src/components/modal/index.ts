@@ -1,3 +1,3 @@
-import DeleteModal from './Delete.vue'
+import DeleteModal from './delete.vue'
 
 export { DeleteModal }

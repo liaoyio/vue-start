@@ -25,6 +25,10 @@ const items: ItemType[] = reactive([
     key: 'security',
     label: 'Security',
   },
+  {
+    key: 'config',
+    label: 'Configuration',
+  },
 ])
 
 const handleClick: MenuProps['onClick'] = ({ key }) => {

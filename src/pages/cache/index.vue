@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-import { on } from 'node:events'
 import { ExclamationCircleFilled, PlusOutlined, SearchOutlined } from '@ant-design/icons-vue'
 import { type TableProps, message } from 'ant-design-vue'
 import { usePagination, useRequest } from 'vue-request'
 import dayjs from 'dayjs'
 import { theme } from 'ant-design-vue'
 import { Progress, StatusCache } from '@/components/ui'
-import { deleteCache, getCacheList } from '@/api'
-import { DeleteModal } from '@/components/modal'
+import { getCacheList } from '@/api'
 import bus from '@/utils/bus'
 const { token } = theme.useToken()
 
@@ -16,10 +14,6 @@ onMounted(() => {
     console.log('触发订阅 -> switchOrg', orgId)
   })
 })
-
-const delRef = ref<InstanceType<typeof DeleteModal> | null>(null)
-
-const currentId = ref()
 
 type TFilter = {
   cloudProvider?: string
@@ -81,14 +75,9 @@ const handleFilter = () => {
   run({ ...prams })
 }
 
-const handleDelPopConfirm = (row: any) => {
-  currentId.value = row.id
-  delRef.value?.setModal(true)
-}
-
 /** 新建 MontCache 服务 */
 const handleCreateCache = () => {
-  router.push({ name: 'NewCache' })
+  router.push({ name: 'AddMontCache' })
 }
 
 /** 进入详情 */
@@ -100,29 +89,6 @@ const handleCacheItem = (item: any) => {
     message.warning('The cache service has been terminated')
   } else {
     message.warning('The cache service is being created, please wait a moment')
-  }
-}
-
-const onDel = async () => {
-  delRef.value?.setLoading(true)
-  try {
-    message.loading({ content: 'Loading...', key: 'delcache' })
-    const res = await deleteCache(currentId.value)
-    if (res.id) {
-      router.replace({ name: 'Cache' })
-      message.warning({
-        content: 'cache deleted!',
-        key: 'delcache',
-        duration: 1.5,
-      })
-      delRef.value?.setLoading(false)
-      delRef.value?.setModal(false)
-      handleFilter()
-    }
-  } catch {
-    delRef.value?.setLoading(false)
-    message.error({ content: 'Delete failed!', key: 'delcache', duration: 1.5 })
-    delRef.value?.setModal(false)
   }
 }
 
@@ -254,19 +220,11 @@ const columns = [
         </template>
 
         <template v-else-if="column.key === 'action'">
-          <div class="flex gap-2">
-            <a-tooltip title="Delete" class="opacity-100">
-              <a-button class="action-btn" danger type="text" shape="circle" @click="handleDelPopConfirm(record)">
-                <svg-icon name="delete" class="h-4.5 w-4.5" />
-              </a-button>
-            </a-tooltip>
-          </div>
+          <div class="flex gap-2">-</div>
         </template>
       </template>
     </a-table>
   </div>
-
-  <DeleteModal ref="delRef" type="del-cache" @on-del="onDel" />
 </template>
 
 <style lang="scss">

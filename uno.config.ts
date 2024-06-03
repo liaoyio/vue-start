@@ -19,7 +19,8 @@ export default defineConfig({
   theme: {
     colors: {
       link: 'rgb(12, 166, 242)',
-      primary: '#0ca6f2',
+      primary: 'var(--primary-color)',
+      'info-4': 'var(--info-4-color)',
     },
     extend: {
       textShadow: {

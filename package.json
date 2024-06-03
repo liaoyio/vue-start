@@ -6,7 +6,7 @@
     "dev:mock": "vite --open --mode mock",
     "dev": "vite --open --mode development",
     "dev:linux": "vite --mode development",
-    "build": "vue-tsc --noEmit && vite build --mode release",
+    "build": "vite build",
     "build:type": "vue-tsc --noEmit",
     "build:site": "vue-tsc --noEmit && vite build --mode site",
     "preview": "vite preview",
@@ -33,6 +33,9 @@
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "@highlightjs/vue-plugin": "^2.1.0",
     "@iconify-json/ep": "^1.1.15",
     "@sxzz/eslint-config": "^3.9.1",
     "@types/js-cookie": "^3.0.6",
@@ -41,8 +44,11 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "changelogen": "^0.5.5",
+    "codemirror": "^6.0.1",
     "dayjs": "^1.11.11",
+    "echarts": "^5.5.0",
     "eslint": "8.56.0",
+    "highlight.js": "^11.9.0",
     "husky": "^9.0.10",
     "lint-staged": "^15.2.2",
     "mockjs": "^1.1.0",
@@ -61,9 +67,12 @@
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-devtools": "^7.0.27",
     "vite-svg-loader": "^5.1.0",
+    "vue-codemirror6": "^1.3.0",
+    "vue-echarts": "^6.7.2",
     "vue-request": "^2.0.4",
     "vue-timezone-select": "^1.0.3",
-    "vue-tsc": "^2.0.11"
+    "vue-tsc": "^2.0.11",
+    "vue-web-terminal": "^3.2.5"
   },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [

@@ -44,6 +44,11 @@ export const defaultRoutes: RouteRecordRaw[] = [
         name: 'MontCache',
       },
       {
+        path: '/mont-cache/add',
+        component: () => import('@/pages/cache/add/index.vue'),
+        name: 'AddMontCache',
+      },
+      {
         path: '/cache/:id',
         name: 'CacheDetail',
         component: () => import('@/pages/cache/layout/index.vue'),
@@ -53,6 +58,11 @@ export const defaultRoutes: RouteRecordRaw[] = [
             path: 'overview',
             name: 'CacheOverview',
             component: () => import('@/pages/cache/over-view/index.vue'),
+          },
+          {
+            path: 'shards',
+            name: 'CacheShards',
+            component: () => import('@/pages/cache/shards/index.vue'),
           },
           {
             path: 'connect',
@@ -81,6 +91,35 @@ export const defaultRoutes: RouteRecordRaw[] = [
         component: () => import('@/pages/cluster/index.vue'),
         name: 'Cluster',
       },
+      {
+        path: '/cluster/details/:clusterId',
+        name: 'ClusterDetail',
+        component: () => import('@/pages/cluster/layout/index.vue'),
+        redirect: { name: 'ClusterOverview' },
+        children: [
+          {
+            path: 'overview',
+            name: 'ClusterOverview',
+            component: () => import('@/pages/cluster/over-view/index.vue'),
+          },
+          {
+            path: 'node-groups',
+            name: 'ClusterNodeGroups',
+            component: () => import('@/pages/cluster/node-groups/index.vue'),
+          },
+          {
+            path: 'metrics',
+            name: 'ClusterMetrics',
+            component: () => import('@/pages/cluster/metrics/index.vue'),
+          },
+        ],
+      },
+      {
+        path: '/deploy',
+        name: 'Logs',
+        component: () => import('@/pages/cluster/logs/index.vue'),
+      },
+
       {
         path: 'org-settings',
         name: 'OrgSettings',
@@ -112,6 +151,16 @@ export const defaultRoutes: RouteRecordRaw[] = [
             path: 'security',
             name: 'OrgSecurity',
             component: () => import('@/pages/org/security/index.vue'),
+          },
+          {
+            path: 'security/add',
+            name: 'OrgSecurityAdd',
+            component: () => import('@/pages/org/security/add/index.vue'),
+          },
+          {
+            path: 'config',
+            name: 'OrgConfig',
+            component: () => import('@/pages/org/config/index.vue'),
           },
         ],
       },

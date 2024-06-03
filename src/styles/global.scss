@@ -5,7 +5,29 @@ html {
   font-family: 'Inter', sans-serif;
 }
 
+.code-view{
+/* 全局滚动条 */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 11px;
+	/* background-color: rgb(246, 247, 248); */
+}
+
+::-webkit-scrollbar-thumb {
+	/* background-color: rgb(233, 236, 239); */
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+	/* background-color: rgb(246, 247, 248); */
+	border-radius: 10px;
+}
+
+}
+
 :root {
+
+  --primary-color: #0ca6f2;
   /* 导航菜单背景 */
   --sider-nav-bg: #fff;
   /* 导航菜单边框 */
@@ -17,7 +39,7 @@ html {
   /* 基础提示文字颜色 */
   --tips-text-color: rgb(85, 85, 85);
   --tips-text-8-color: rgb(115, 115, 115);
-  ;
+  --info-4-color: rgba(0, 0, 0, 0.45);
 }
 
 .dark {
@@ -30,6 +52,7 @@ html {
   /* 基础提示文字颜色 */
   --tips-text-color: rgb(198, 198, 198);
   --tips-text-8-color: rgb(136, 136, 136);
+  --info-4-color: rgba(255, 255, 255, 0.45);
 }
 
 body {
@@ -92,11 +115,20 @@ p {
 
 a.ac-link {
   word-break: break-all;
-  font-weight: 600;
+  font-weight: 500;
   color: #0ca6f2;
   cursor: pointer;
   outline: none;
   text-decoration: none;
+
+  &.disabled {
+    color: var(--info-4-color);
+    cursor: not-allowed;
+    &:hover {
+      text-decoration: none;
+      color: var(--info-4-color);
+    }
+  }
 
   &:hover {
     color: #19b3ff;
@@ -112,7 +144,7 @@ a.ac-link {
   justify-content: space-between;
   gap: 24px;
   position: sticky;
-  z-index: 1;
+  z-index: 99;
   top: 0px;
   left: 0px;
   padding-right: 24px;
@@ -137,4 +169,34 @@ a.ac-link {
 .flex-50 {
   flex: 0 0 50%;
   max-width: 50%;
+}
+
+.icon_root {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	user-select: none;
+	width: 1em;
+	height: 1em;
+	display: inline-block;
+	fill: currentcolor;
+	flex-shrink: 0;
+	transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+
+code.c {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
+    line-height: 1.55;
+    padding: 2px calc(5px);
+    border-radius: 4px;
+    color: rgb(26, 27, 30);
+    background: rgb(244, 244, 244);
+    font-size: 13px;
+    font-weight: 600;
+}
+.dark {
+    code.c {
+      color: rgb(193, 194, 197);
+      background: rgb(41, 41, 41);
+    }
 }

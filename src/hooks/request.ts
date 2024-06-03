@@ -1,15 +1,19 @@
 import { type UnwrapRef, ref } from 'vue'
 import useLoading from './loading'
 import type { AxiosResponse } from 'axios'
-import type { HttpResponse } from '@/api/interceptor'
 
 // use to fetch list
 // Don't use async function. It doesn't work in async function.
 // Use the bind function to add parameters
 // example: useRequest(api.bind(null, {}))
 
-export default function useRequest<T>(
-  api: () => Promise<AxiosResponse<HttpResponse>>,
+/** 接口返回数据格式 */
+interface ApiRes<T> {
+  data: T
+}
+
+export function useRequest<T>(
+  api: () => Promise<AxiosResponse<ApiRes<T>>>,
   defaultValue = [] as unknown as T,
   isLoading = true,
 ) {

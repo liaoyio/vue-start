@@ -38,7 +38,7 @@ const utcValue = ref('')
         </ul>
       </a-card>
 
-      <a-card class="mt-6">
+      <a-card v-if="false" class="mt-6">
         <div class="flex_lr">
           <div>
             <h3>Time Zone</h3>

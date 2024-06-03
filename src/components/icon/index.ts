@@ -1,3 +1,4 @@
-import LoadingLoop from './LoadingLoop.vue'
+import LoadingLoop from './loading-loop.vue'
+import Sand from './sand.vue'
 
-export { LoadingLoop }
+export { LoadingLoop, Sand }
