@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import { SearchOutlined } from '@ant-design/icons-vue'
 import { theme } from 'ant-design-vue'
-import inviteUserModal from './invite.vue'
+import InviteByOrg from './invite.vue'
+import InviteByProject from './invite-user.vue'
 const { token } = theme.useToken()
 
-const inviteRef = ref<InstanceType<typeof inviteUserModal>>()
+const orgRef = ref<InstanceType<typeof InviteByOrg>>()
+const projectRef = ref<InstanceType<typeof InviteByProject>>()
 
+const onInvite = () => {
+  if (filterState.by === 'By Project') {
+    projectRef.value?.open('')
+  } else {
+    orgRef.value?.open()
+  }
+}
 const filterState = reactive({
   by: 'By Organization',
   userName: '',
@@ -76,7 +85,7 @@ const columns = [
   <main class="pb-6">
     <header class="mt-header my-4">
       <h3>Users</h3>
-      <a-button type="primary" @click="inviteRef?.open">Invite</a-button>
+      <a-button type="primary" @click="onInvite">Invite</a-button>
     </header>
     <section px="6" py="2">
       <div class="mb-6">
@@ -121,7 +130,8 @@ const columns = [
       </a-table>
     </section>
   </main>
-  <inviteUserModal ref="inviteRef" />
+  <InviteByOrg ref="orgRef" />
+  <InviteByProject ref="projectRef" />
 </template>
 
 <style lang="scss"></style>
