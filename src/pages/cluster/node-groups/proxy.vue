@@ -6,8 +6,6 @@ import { Progress, StatusCluster } from '@/components/ui'
 import { DeleteModal } from '@/components/modal'
 import { LoadingLoop } from '@/components/icon'
 import { AddNodeGroupModal, ScaleModal, ViewLogButton } from './components'
-import type { NodeGroups } from '@/api/byoc'
-import type { Cluster } from '@/types/byoc'
 
 const route = useRoute()
 const router = useRouter()
@@ -197,7 +195,6 @@ const workNodeColumns = [
         </template>
 
         <!-- Creating/Scaling/Ready -->
-
         <template v-if="column.key === 'status'">
           <StatusCluster v-if="text === 'Ready'" :status="1" :phase="text" />
           <span v-else-if="text === 'Scaling'" class="flex_c gap-1.5"> <LoadingLoop /> Scaling </span>

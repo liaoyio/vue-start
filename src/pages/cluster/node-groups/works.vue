@@ -40,7 +40,7 @@ const handleViewLogs = (stackId: number) => {
   router.push({ name: 'Logs', query: { stackId, type: 'scale' } })
 }
 
-const handleCrateWorkNode = async () => {
+const handleCrate = async () => {
   const params = {
     eksClusterId: cluster?.value?.id,
     region: cluster?.value?.region,
@@ -159,12 +159,7 @@ const workNodeColumns = [
 
     <div class="flex flex-row-reverse">
       <div class="flex gap-4">
-        <a-button
-          type="primary"
-          :loading="loading"
-          class="yi-btn-default items-center !flex"
-          @click="handleCrateWorkNode"
-        >
+        <a-button type="primary" :loading="loading" class="yi-btn-default items-center !flex" @click="handleCrate">
           <template #icon>
             <PlusOutlined />
           </template>

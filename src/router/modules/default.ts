@@ -118,7 +118,7 @@ export const defaultRoutes: RouteRecordRaw[] = [
                 component: () => import('@/pages/cluster/node-groups/proxy.vue'),
               },
               {
-                path: 'Controller',
+                path: 'controller',
                 name: 'Controller',
                 component: () => import('@/pages/cluster/node-groups/controller.vue'),
               },

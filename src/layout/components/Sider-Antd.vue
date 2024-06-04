@@ -15,6 +15,9 @@ const overlayInnerStyle: CSSProperties = {
   boxShadow: 'rgba(0, 0, 0, 0.08) 0px 8px 32px',
   padding: '8px',
 }
+
+const router = useRouter()
+const goTo = (name: string) => router.push({ name })
 </script>
 
 <template>
@@ -56,7 +59,7 @@ const overlayInnerStyle: CSSProperties = {
             <menu-item class="px-3 text-link"> YoaiL's Org </menu-item>
             <a-divider class="my-2" />
 
-            <menu-item class="px-3">
+            <menu-item class="px-3" @click="goTo('OrgSettings')">
               <div class="flex items-center gap-2">
                 <SvgIcon name="setting" size="14" />
                 Organization Settings
@@ -82,7 +85,7 @@ const overlayInnerStyle: CSSProperties = {
           </div>
           <a-divider class="my-2" />
 
-          <menu-item class="px-3">
+          <menu-item class="px-3" @click="goTo('AccountSettings')">
             <div class="flex items-center gap-2">
               <SvgIcon name="setting" size="14" />
               Account Settings

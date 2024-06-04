@@ -1,16 +1,27 @@
 <script setup lang="ts">
 import { message } from 'ant-design-vue'
+import { useRequest } from 'vue-request'
 import { Progress, StatusCluster } from '@/components/ui'
 import { LoadingLoop } from '@/components/icon'
 import { ScaleModal } from './components/index'
-import type { Cluster } from '@/types/byoc'
-import type { NodeGroups } from '@/api/byoc'
+
+const route = useRoute()
 
 const scaleRef = ref<InstanceType<typeof ScaleModal> | null>(null)
 
-const props = defineProps({ list: { type: Array as PropType<NodeGroups[]> } })
-const cluster = inject<Ref<Cluster>>('cluster')
-const base = computed(() => props.list?.filter((item) => item.eksVersion)[0])
+const eksClusterId = route.params.clusterId
+
+const { data: cluster } = useRequest(getClusterById, {
+  defaultParams: [Number(eksClusterId)],
+})
+
+const { data: nodes } = useRequest(getEksNodeGroupResourceList, {
+  defaultParams: [{ eksClusterId: Number(eksClusterId), isController: true }],
+})
+
+const list = computed(() => nodes.value?.list ?? [])
+
+const base = computed(() => nodes.value?.list?.filter((item) => item.eksVersion)[0])
 
 const router = useRouter()
 const handleViewLogs = (stackId: number) => {
@@ -22,11 +33,10 @@ const emit = defineEmits<{ (e: 'refresh', stackId: number): void }>()
 const handleRefresh = (stackId: number) => emit('refresh', stackId)
 
 const handleScale = () => {
-  console.log('controller -->', cluster?.value.id)
   const { instanceNumber, minSize, maxSize, name } = base.value!
 
   scaleRef.value?.open({
-    eksClusterId: cluster?.value.id,
+    eksClusterId: cluster?.value?.id,
     nodeGroupName: name,
     instanceNumber,
     minSize,
@@ -89,17 +99,19 @@ const controllerColumns = [
 
       <div class="my-3 flex flex-row-reverse">
         <div class="flex gap-4">
-          <a-button type="primary" class="yi-btn-default items-center gap-2 !flex" @click="handleScale">
-            Scale <icon-svg-scale class="h-4 w-4" />
+          <a-button type="primary" class="flex items-center gap-2" @click="handleScale">
+            Scale
+            <SvgIcon name="scale" size="16" class="text-black·" />
           </a-button>
 
           <a-button
             type="primary"
-            class="yi-btn-default items-center gap-2 !flex"
+            class="flex items-center gap-2"
             :disabled="!base?.stackId || base.status !== 'Ready'"
             @click="handleViewLogs(cluster?.stackId!)"
           >
-            Logs <icon-svg-view-log class="h-4 w-4" />
+            <SvgIcon name="view-log" size="16" />
+            Logs
           </a-button>
         </div>
       </div>
