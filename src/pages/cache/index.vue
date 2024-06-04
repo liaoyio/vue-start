@@ -77,7 +77,7 @@ const handleFilter = () => {
 
 /** 新建 MontCache 服务 */
 const handleCreateCache = () => {
-  router.push({ name: 'AddMontCache' })
+  router.push({ name: 'AddCache' })
 }
 
 /** 进入详情 */
@@ -128,13 +128,13 @@ const columns = [
 
 <template>
   <div class="flex justify-between px-8 py-6">
-    <div class="text-xl font-medium text-gray-i">MontCache</div>
+    <div class="text-xl font-medium text-gray-i">Montplex Cache</div>
     <div class="flex gap-4">
       <a-button type="primary" class="items-center !flex" @click="handleCreateCache">
         <template #icon>
           <PlusOutlined />
         </template>
-        New Database
+        New Cache
       </a-button>
     </div>
   </div>

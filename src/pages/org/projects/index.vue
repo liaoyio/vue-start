@@ -57,7 +57,7 @@ const columns = [
     key: 'createAt',
   },
   {
-    title: 'Clusters',
+    title: 'Caches',
     dataIndex: 'clusterNum',
     key: 'clusterNum',
   },
@@ -106,5 +106,3 @@ const columns = [
   <!-- Invite User -->
   <inviteUserModal ref="inviteRef" />
 </template>
-
-<style lang="scss"></style>

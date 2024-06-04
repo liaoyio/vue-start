@@ -9,7 +9,7 @@ const { data, loading } = useRequest(cacheOne)
 <template>
   <main>
     <header class="mt-header my-2">
-      <h3 class="block">General</h3>
+      <h3 class="block">Overview</h3>
       <OperatingButton :info="data" />
     </header>
     <section px="6" py="2" class="flex flex-col gap-y-8">

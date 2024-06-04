@@ -18,7 +18,7 @@ import UnoCss from 'unocss/vite'
 
 const pathSrc = resolve(__dirname, 'src')
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd()) as ImportMetaEnv
   return {
     // 开发或生产环境服务的公共基础路径
@@ -96,17 +96,11 @@ export default defineConfig(({ command, mode }) => {
         '@': `${pathSrc}/`,
       },
     },
-    /*  css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use "@/styles/element/index.scss" as *;`,
-        },
-      },
-    }, */
+    // 构建
     build: {
       chunkSizeWarningLimit: 2000, // 消除打包大小超过500kb警告
       outDir: 'dist', // 指定打包路径，默认为项目根目录下的dist目录
-      minify: 'terser', // Vite 2.6.x 以上需要配置 minify："terser"，terserOptions才能生效
+      minify: 'terser', // Vite 2.6.x 以上需要配置 minify："terser"，terserOptions才能生效 (注意: vite 4.X 版本已经不集成 terser，需要自行下载)
       terserOptions: {
         compress: {
           keep_infinity: true, // 防止 Infinity 被压缩成 1/0，这可能会导致 Chrome 上的性能问题

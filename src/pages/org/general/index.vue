@@ -1,7 +1,4 @@
-<script setup lang="ts">
-import { list } from '@/components/ui/time-zone/data'
-const utcValue = ref('')
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <main>
@@ -36,29 +33,6 @@ const utcValue = ref('')
             </div>
           </li>
         </ul>
-      </a-card>
-
-      <a-card v-if="false" class="mt-6">
-        <div class="flex_lr">
-          <div>
-            <h3>Time Zone</h3>
-          </div>
-          <div>
-            <a-button type="primary">Update</a-button>
-          </div>
-        </div>
-
-        <div class="flex_lr mt-8">
-          <a-select v-model="utcValue" size="large" filterable class="w-80">
-            <template v-for="item in list" :key="item.value">
-              <a-select-option :label="item.value" :value="item.value" />
-            </template>
-          </a-select>
-          <div class="flex items-center gap-1">
-            <p class="tips-8">Current Time:</p>
-            <p class="tips">2024-05-30 16:24:55 UTC±00:00</p>
-          </div>
-        </div>
       </a-card>
     </section>
   </main>

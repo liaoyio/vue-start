@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { PieChartOutlined } from '@ant-design/icons-vue'
 import IconCluster from '@/assets/icons/menu-cluster.svg?component'
 import IconService from '@/assets/icons/menu-data-service.svg?component'
-import SiderAntd from './components/Sider-Antd.vue'
-import SiderButtom from './components/Sider.vue'
+import SiderButtom from './components/Sider-Antd.vue'
 import type { MenuClickEventHandler } from 'ant-design-vue/es/menu/src/interface'
 const router = useRouter()
 
@@ -20,10 +18,10 @@ const handelMenuChange: MenuClickEventHandler = ({ key }) => {
 
 const items = reactive([
   {
-    key: 'mont-cache',
+    key: 'cache',
     icon: () => h(IconService),
-    label: 'MontCache',
-    title: 'MontCache',
+    label: 'Caches',
+    title: 'Caches',
   },
   {
     key: 'cluster',
@@ -34,16 +32,6 @@ const items = reactive([
 ])
 
 provide('collapsed', collapsed)
-
-/* const handleMouseEnter = () => {
-  // 处理鼠标移入的逻辑
-  collapsed.value = false
-}
-const handleMouseLeave = () => {
-  // 处理鼠标移出的逻辑
-  collapsed.value = true
-}
- */
 </script>
 
 <template>

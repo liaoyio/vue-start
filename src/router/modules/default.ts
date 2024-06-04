@@ -35,18 +35,17 @@ export const defaultRoutes: RouteRecordRaw[] = [
     path: '/',
     name: 'Home',
     component: Layout,
-    redirect: '/mont-cache',
-    meta: { hidden: false },
+    redirect: '/cache',
     children: [
       {
-        path: '/mont-cache',
+        path: '/cache',
         component: () => import('@/pages/cache/index.vue'),
-        name: 'MontCache',
+        name: 'Caches',
       },
       {
-        path: '/mont-cache/add',
+        path: '/cache/add',
         component: () => import('@/pages/cache/add/index.vue'),
-        name: 'AddMontCache',
+        name: 'AddCache',
       },
       {
         path: '/cache/:id',
@@ -103,9 +102,27 @@ export const defaultRoutes: RouteRecordRaw[] = [
             component: () => import('@/pages/cluster/over-view/index.vue'),
           },
           {
-            path: 'node-groups',
-            name: 'ClusterNodeGroups',
+            path: 'node-group',
+            name: 'NodeGroupsOverview',
             component: () => import('@/pages/cluster/node-groups/index.vue'),
+            redirect: { name: 'Worker' },
+            children: [
+              {
+                path: 'worker',
+                name: 'Worker',
+                component: () => import('@/pages/cluster/node-groups/works.vue'),
+              },
+              {
+                path: 'proxy',
+                name: 'Proxy',
+                component: () => import('@/pages/cluster/node-groups/proxy.vue'),
+              },
+              {
+                path: 'Controller',
+                name: 'Controller',
+                component: () => import('@/pages/cluster/node-groups/controller.vue'),
+              },
+            ],
           },
           {
             path: 'metrics',

@@ -2,7 +2,7 @@
 import { useRequest } from 'vue-request'
 import { message } from 'ant-design-vue'
 import dayjs from 'dayjs'
-import { Progress, StatusCache } from '@/components/ui'
+import { Progress, StatusCluster } from '@/components/ui'
 import { delCluster, getClusterList } from '@/api/byoc'
 import { DeleteModal } from '@/components/modal'
 import type { Cluster } from '@/types/byoc'
@@ -148,7 +148,7 @@ const columns = [
           </template>
 
           <template v-else-if="column.key === 'stackStatus'">
-            <StatusCache :stack-type="record.stackType" :stack-status="record.stackStatus" />
+            <StatusCluster :stack-type="record.stackType" :stack-status="record.stackStatus" />
           </template>
 
           <template v-else-if="column.key === 'ramUsed'">

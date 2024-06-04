@@ -4,6 +4,10 @@ import type { CSSProperties } from 'vue'
 
 const app = useAppStore()
 
+const switchMode = () => {
+  app.toggleTheme()
+}
+
 const collapsed = inject<Ref<boolean>>('collapsed')
 
 const overlayInnerStyle: CSSProperties = {
@@ -101,9 +105,12 @@ const overlayInnerStyle: CSSProperties = {
       </a-menu-item>
     </a-popover>
 
-    <a-menu-item key="4">
+    <a-menu-item key="4" @click="switchMode">
+      <template #title>
+        <span>{{ app.theme === 'dark' ? 'Switch Dark' : 'Switch Light' }}</span>
+      </template>
       <template #icon>
-        <SvgIcon :name="app.mode === 'auto' ? 'mode-system' : app.mode === 'dark' ? 'mode-dark' : 'mode-light'" />
+        <SvgIcon :name="app.theme === 'dark' ? 'mode-dark' : 'mode-light'" />
       </template>
       Mode
     </a-menu-item>

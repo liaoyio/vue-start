@@ -1,45 +1,42 @@
 <script setup lang="ts">
 import type { ItemType, MenuProps } from 'ant-design-vue'
 
-const activeRoute = ref<string[]>(['overview'])
+const activeRoute = ref<string[]>(['ClusterOverview'])
+
+const route = useRoute()
+const router = useRouter()
 
 const items: ItemType[] = reactive([
   {
-    key: 'overview',
+    key: 'ClusterOverview',
     label: 'Overview',
   },
   {
-    key: 'nodeGroups',
-    label: 'Node Groups',
+    key: 'ClusterMetrics',
+    label: 'Metrics',
   },
   {
-    key: 'metrics',
-    label: 'Metrics',
+    key: 'NodeGroupsOverview',
+    label: 'Node Groups',
   },
 ])
 
 const handleClick: MenuProps['onClick'] = ({ key }) => {
   activeRoute.value = [key as string]
-  router.replace({ name: `Cluster${titleCase(key as string)}` })
+  router.push({ name: key as string })
 }
-
-const router = useRouter()
 
 /* 监听路由变化,切换子路由页面时保持tab选中状态 */
 watch(
-  () => router.currentRoute.value.path,
-  ($new: string) => {
-    const pathStr = $new.split('/').pop()
-    activeRoute.value = [pathStr as string]
+  () => route.name,
+  ($new) => {
+    activeRoute.value = [$new as string]
+    if (route.path.includes('node-group')) {
+      activeRoute.value = ['NodeGroupsOverview']
+    }
   },
   { immediate: true },
 )
-
-/* 首字母大写 */
-function titleCase(str: string | undefined) {
-  if (!str) return
-  return str.toLowerCase().replaceAll(/( |^)[a-z]/g, (L) => L.toUpperCase())
-}
 </script>
 
 <template>
