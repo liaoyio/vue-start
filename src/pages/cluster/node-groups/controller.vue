@@ -2,7 +2,7 @@
 import { message } from 'ant-design-vue'
 import { Progress, StatusCluster } from '@/components/ui'
 import { LoadingLoop } from '@/components/icon'
-import ScaleModal from '../components/modal/scale-modal.vue'
+import { ScaleModal } from './components/index'
 import type { Cluster } from '@/types/byoc'
 import type { NodeGroups } from '@/api/byoc'
 
