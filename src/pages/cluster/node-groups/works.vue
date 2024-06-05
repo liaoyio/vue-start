@@ -22,13 +22,8 @@ const { data: cluster } = useRequest(getClusterById, {
   defaultParams: [Number(eksClusterId)],
 })
 
-const { data: nodes } = useRequest(getEksNodeGroupResourceList, {
-  defaultParams: [{ eksClusterId: Number(eksClusterId), isWorker: true }],
-})
-
-const state = reactive<{ selectedRowKeys: any[]; loading: boolean }>({
-  selectedRowKeys: [],
-  loading: false,
+const { data: nodes, loading: nodeLoading } = useRequest(getEksNodeGroupResourceList, {
+  defaultParams: [{ eksClusterId: Number(eksClusterId), isProxy: true }],
 })
 
 const works = computed(() => nodes.value?.list ?? [])
@@ -152,14 +147,14 @@ const workNodeColumns = [
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="pb-2 text-base font-medium text-gray-i">
-      Work Node Info
-      <p class="text-12px font-normal text-[#4c576c]">Work node is the node for deploying montCache.</p>
-    </div>
+    <a-card class="mb-2">
+      <h3>Work Node Info</h3>
+      <p class="text-sm text-info-4 m-1">Work node is the node for deploying montCache.</p>
+    </a-card>
 
     <div class="flex flex-row-reverse">
       <div class="flex gap-4">
-        <a-button type="primary" :loading="loading" class="yi-btn-default items-center !flex" @click="handleCrate">
+        <a-button type="primary" :loading="loading" class="flex_c" @click="handleCrate">
           <template #icon>
             <PlusOutlined />
           </template>
@@ -173,7 +168,7 @@ const workNodeColumns = [
       :data-source="works"
       :pagination="false"
       :row-key="(record) => record.id"
-      :loading="state.loading"
+      :loading="nodeLoading"
       class="yi-table mt-3"
     >
       <template #bodyCell="{ column, record, text }">
@@ -205,8 +200,8 @@ const workNodeColumns = [
 
         <template v-if="column.key === 'status'">
           <StatusCluster v-if="text === 'Ready'" :status="1" :phase="text" />
-          <span v-else-if="text === 'Scaling'" class="flex_c gap-1.5"> <LoadingLoop /> Scaling </span>
-          <span v-else-if="text === 'Creating'" class="flex_c gap-1.5"> <LoadingLoop /> Creating </span>
+          <span v-else-if="text === 'Scaling'" class="flex_c1.5"> <LoadingLoop /> Scaling </span>
+          <span v-else-if="text === 'Creating'" class="flex_c1.5"> <LoadingLoop /> Creating </span>
           <span v-else> - </span>
         </template>
 
@@ -216,15 +211,15 @@ const workNodeColumns = [
 
         <template v-else-if="column.key === 'ramUsed'">
           <ul class="flex flex-col gap-1 text-[12px]">
-            <li class="flex items-center gap-1">
+            <li class="flex_c gap-1">
               <span class="min-w-16">Memory: </span>
               <Progress :percent="record.memoryRequestedRate" :use-rate="true" />
             </li>
-            <li class="flex items-center gap-1">
+            <li class="flex_c gap-1">
               <span class="min-w-16">CPU: </span>
               <Progress :percent="record.cpuRequestedRate" :use-rate="true" />
             </li>
-            <li class="flex items-center gap-1">
+            <li class="flex_c gap-1">
               <span class="min-w-16">Pod:</span>
               <Progress :percent="record.podsRequestedRate" :use-rate="true" />
             </li>
@@ -235,7 +230,9 @@ const workNodeColumns = [
           <div class="flex gap-2">
             <a-tooltip title="Scale">
               <a-button type="text" class="action-btn" shape="circle" @click="handleScale(record)">
-                <SvgIcon name="scale" size="16" />
+                <template #icon>
+                  <SvgIcon name="scale" size="16" />
+                </template>
               </a-button>
             </a-tooltip>
 

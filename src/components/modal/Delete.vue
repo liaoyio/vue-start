@@ -30,7 +30,7 @@ const titleText = computed(() => {
 <template>
   <a-modal v-model:open="open" :closable="false">
     <template #title>
-      <span class="flex items-center gap-1.5">
+      <span class="flex_c1.5">
         <ExclamationCircleFilled :style="{ color: 'rgb(242, 80, 80)', fontSize: '20px' }" />
         {{ titleText }}
       </span>

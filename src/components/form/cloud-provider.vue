@@ -16,7 +16,7 @@ const state = useVModel(props, 'modelValue', emit)
   <div id="yi-r-groups">
     <a-radio-group v-model:value="state" class="flex" style="z-index: 1">
       <a-radio-button v-for="(item, index) in clouds" :key="index" class="yi-r-btn" :value="item.value">
-        <span class="w-full flex items-center gap-2.5">
+        <span class="w-full flex_c gap-2.5">
           <SvgIcon v-if="item.value === 'aliyun'" name="cloud-aliyun" class="h-6 w-6" />
           <SvgIcon v-if="item.value === 'aws'" name="cloud-aws" class="h-6 w-6" />
           <span class="text-center"> {{ item.label }}</span>

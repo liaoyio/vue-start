@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { InstanceType } from '@/types/byoc'
 import type { Rule } from 'ant-design-vue/es/form'
-import type { FormInstance } from 'ant-design-vue'
+import type { FormInstance, ModalProps } from 'ant-design-vue'
 
 type Params = { eksClusterId: number | string; region: string; type?: string }
 
@@ -57,11 +57,27 @@ const rules: Record<string, Rule[]> = {
 }
 
 defineExpose({ open, modalInit })
+
+const $bind = computed(() => {
+  return {
+    width: 720,
+    closable: false,
+    centered: true,
+    okText: 'Confirm',
+    title: 'Add Node Group',
+    okButtonProps: {
+      size: 'large',
+    },
+    cancelButtonProps: {
+      size: 'large',
+    },
+  } as ModalProps
+})
 </script>
 
 <template>
-  <a-modal v-model:open="open" title="Add Node Group" @close="open = false">
-    <a-form ref="editFormRef" class="mt-6" :model="formState" layout="vertical" :rules="rules">
+  <a-modal v-model:open="open" v-bind="$bind" @ok="handleOk" @close="open = false">
+    <a-form ref="editFormRef" size="large" class="mt-3 mb-8" :model="formState" layout="vertical" :rules="rules">
       <a-form-item label="Node Group Name" name="nodeGroupName">
         <a-input v-model:value="formState.nodeGroupName" placeholder="Node Group Name." />
       </a-form-item>
@@ -80,11 +96,5 @@ defineExpose({ open, modalInit })
         <a-input-number v-model:value="formState.instanceNumber" :min="1" :max="100" style="width: 100%" />
       </a-form-item>
     </a-form>
-    <template #footer>
-      <div class="flex flex-row-reverse gap-4 py-2">
-        <a-button key="submit" type="primary" @click="handleOk">OK</a-button>
-        <a-button key="back" @click="open = val">Cancel</a-button>
-      </div>
-    </template>
   </a-modal>
 </template>

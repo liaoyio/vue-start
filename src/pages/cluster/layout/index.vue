@@ -44,7 +44,7 @@ watch(
     <div class="flex h-full translate-x-0">
       <nav class="sub-nav">
         <div class="flex-initial font-700 overflow-hidden text-ellipsis whitespace-nowrap py-4 px-4.5 line-height-6">
-          <span class="text-base"> Cluster 0 </span>
+          <span class="text-base"> Cluster </span>
         </div>
         <div class="py-1 pl-1 pr-2 flex-1 overflow-y-auto">
           <a-menu

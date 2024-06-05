@@ -11,11 +11,11 @@ const scaleRef = ref<InstanceType<typeof ScaleModal> | null>(null)
 
 const eksClusterId = route.params.clusterId
 
-const { data: cluster } = useRequest(getClusterById, {
+const { data: cluster, loading: clusterLoading } = useRequest(getClusterById, {
   defaultParams: [Number(eksClusterId)],
 })
 
-const { data: nodes } = useRequest(getEksNodeGroupResourceList, {
+const { data: nodes, loading } = useRequest(getEksNodeGroupResourceList, {
   defaultParams: [{ eksClusterId: Number(eksClusterId), isController: true }],
 })
 
@@ -69,44 +69,52 @@ const controllerColumns = [
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="pb-2 text-base font-medium text-gray-i">
-      Controller Node Info
-      <p class="text-12px font-normal text-[#4c576c]">Controller nodes are used to deploy control components.</p>
-    </div>
-
     <div class="flex flex-col gap-4">
-      <div
-        class="grid grid-cols-3 items-center items-center gap-4 border-b border-t border-dashed px-4 py-4 sm:grid-flow-col"
-      >
-        <div class="meat">
-          <div>InstanceType</div>
-          <span>{{ base?.instanceType ?? '-' }}</span>
+      <a-card :loading="clusterLoading">
+        <div class="flex_lr">
+          <div>
+            <h3>Controller Node Info</h3>
+            <p class="text-info-4 mt-1">Controller nodes are used to deploy control components.</p>
+          </div>
         </div>
-        <div class="meat">
-          <div>Version</div>
-          <span>{{ base?.eksVersion }}</span>
-        </div>
-        <div class="meat">
-          <div>Status</div>
-          <template v-if="base?.status">
-            <StatusCluster v-if="base.status === 'Ready'" :status="1" :phase="base.status" />
-            <span v-else-if="base.status === 'Scaling'" class="flex_c gap-1.5"> <LoadingLoop /> Scaling </span>
-            <span v-else-if="base.status === 'Creating'" class="flex_c gap-1.5"> <LoadingLoop /> Creating </span>
-            <span v-else> - </span>
-          </template>
-        </div>
-      </div>
 
-      <div class="my-3 flex flex-row-reverse">
+        <div class="flex flex-col gap-4 mt-8">
+          <ul class="bento-card">
+            <li>
+              <div>InstanceType</div>
+              <div>{{ base?.instanceType ?? '-' }}</div>
+            </li>
+            <li>
+              <div>Version</div>
+              <div>{{ base?.eksVersion }}</div>
+            </li>
+            <li>
+              <div>Status</div>
+              <div>
+                <template v-if="base?.status">
+                  <StatusCluster v-if="base.status === 'Ready'" :status="1" :phase="base.status" />
+                  <span v-else-if="base.status === 'Scaling'" class="flex_c1.5"> <LoadingLoop /> Scaling </span>
+                  <span v-else-if="base.status === 'Creating'" class="flex_c1.5"> <LoadingLoop /> Creating </span>
+                  <span v-else> - </span>
+                </template>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </a-card>
+
+      <div class="my-2 flex flex-row-reverse">
         <div class="flex gap-4">
-          <a-button type="primary" class="flex items-center gap-2" @click="handleScale">
+          <a-button type="primary" class="flex_c2" @click="handleScale">
+            <template #icon>
+              <SvgIcon name="scale" size="16" />
+            </template>
             Scale
-            <SvgIcon name="scale" size="16" class="text-black·" />
           </a-button>
 
           <a-button
             type="primary"
-            class="flex items-center gap-2"
+            class="flex_c2"
             :disabled="!base?.stackId || base.status !== 'Ready'"
             @click="handleViewLogs(cluster?.stackId!)"
           >
@@ -116,7 +124,7 @@ const controllerColumns = [
         </div>
       </div>
 
-      <a-table :columns="controllerColumns" :data-source="list" :pagination="false" class="yi-table">
+      <a-table :loading="loading" :columns="controllerColumns" :data-source="list" :pagination="false" class="yi-table">
         <template #bodyCell="{ column, record, text }">
           <template v-if="column.key === 'zone'">
             <a-tag style="border: none" :bordered="false" color="blue">
@@ -144,5 +152,14 @@ const controllerColumns = [
 <style lang="scss" scoped>
 ::v-deep(.ant-table-wrapper .ant-table-tbody > tr > td) {
   padding: 12px 16px !important;
+}
+
+.bento-card li {
+  div:nth-child(2) {
+    font-size: 14px;
+    margin-top: 8px;
+    font-weight: 500;
+    color: var(--tips-text-color);
+  }
 }
 </style>

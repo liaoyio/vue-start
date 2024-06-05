@@ -22,7 +22,7 @@ const tabClick = (key: any) => {
     <header class="mt-header my-2">
       <h3 class="block">Node Groups</h3>
     </header>
-    <section px="6" py="2" class="flex flex-col gap-y-8">
+    <section px="6" py="2" class="flex flex-col gap-y-4">
       <a-tabs v-model:activeKey="activeRoute" @tab-click="tabClick">
         <a-tab-pane key="Worker" tab="Works" />
         <a-tab-pane key="Proxy" tab="Proxy" />

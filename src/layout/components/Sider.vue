@@ -36,7 +36,7 @@ onBeforeUnmount(() => {
           <a-divider class="my-2" />
 
           <menu-item class="px-3">
-            <div class="flex items-center gap-2">
+            <div class="flex_c2">
               <SvgIcon name="setting" size="14" />
               Project Settings
             </div>
@@ -62,7 +62,7 @@ onBeforeUnmount(() => {
           <a-divider class="my-2" />
 
           <menu-item class="px-3" @click="goTo('OrgSettings')">
-            <div class="flex items-center gap-2">
+            <div class="flex_c2">
               <SvgIcon name="setting" size="14" />
               <span> Organization Settings</span>
             </div>
@@ -94,13 +94,13 @@ onBeforeUnmount(() => {
         <a-divider class="my-2" />
 
         <menu-item class="px-3" @click="goTo('AccountSettings')">
-          <div class="flex items-center gap-2">
+          <div class="flex_c2">
             <SvgIcon name="setting" size="14" />
             Account Settings
           </div>
         </menu-item>
         <menu-item class="px-3">
-          <div class="flex items-center gap-2">
+          <div class="flex_c2">
             <SvgIcon name="logout" size="14" />
             Logout
           </div>

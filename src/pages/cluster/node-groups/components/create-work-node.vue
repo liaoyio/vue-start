@@ -87,7 +87,7 @@ defineExpose({ open, modalInit })
     :footer-style="{ textAlign: 'right' }"
     @close="open = false"
   >
-    <a-form ref="editFormRef" :model="formState" layout="vertical" :rules="rules">
+    <a-form ref="editFormRef" size="large" :model="formState" layout="vertical" :rules="rules">
       <a-form-item label="Node Group Name" name="nodeGroupName">
         <a-input v-model:value="formState.nodeGroupName" placeholder="Node Group Name." />
       </a-form-item>
@@ -142,8 +142,8 @@ defineExpose({ open, modalInit })
 
     <template #footer>
       <div class="flex flex-row-reverse gap-4 py-4">
-        <a-button key="submit" type="primary" @click="handleOk">OK</a-button>
-        <a-button key="back" @click="open = val">Cancel</a-button>
+        <a-button key="submit" size="large" type="primary" @click="handleOk">OK</a-button>
+        <a-button key="back" size="large" @click="open = val">Cancel</a-button>
       </div>
     </template>
   </a-drawer>

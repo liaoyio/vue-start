@@ -13,6 +13,8 @@ import { presetExtra } from 'unocss-preset-extra'
 export default defineConfig({
   shortcuts: [
     { flex_c: 'flex items-center' },
+    { 'flex_c1.5': 'flex items-center gap-2' },
+    { flex_c2: 'flex items-center gap-2' },
     { flex_cc: 'flex_c justify-center' },
     { flex_lr: 'flex_c justify-between' },
   ],

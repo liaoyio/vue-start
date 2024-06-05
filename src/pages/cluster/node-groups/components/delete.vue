@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { ModalProps } from 'ant-design-vue'
 
 const open = ref(false)
 const loading = ref(false)
@@ -31,22 +32,30 @@ defineExpose({ setChildClusterInfo, showModal })
 const handleInput = (e: any) => {
   hasdel.value = e.target.value === clusterInfo.name
 }
+
+const $bind = computed(() => {
+  return {
+    width: 720,
+    closable: false,
+    centered: true,
+    okText: 'Delete',
+    cancelText: 'Cancel',
+    title: 'Delete Cluster',
+    okButtonProps: {
+      size: 'large',
+      disabled: !hasdel.value,
+      danger: true,
+      loading: loading.value,
+    },
+    cancelButtonProps: {
+      size: 'large',
+    },
+  } as ModalProps
+})
 </script>
 
 <template>
-  <a-modal
-    v-model:open="open"
-    title="Delete Cluster"
-    cancel-text="Cancel"
-    ok-text="Delete"
-    :confirm-loading="loading"
-    :ok-button-props="{
-      disabled: !hasdel,
-      loading,
-      danger: true,
-    }"
-    @ok="handleOk"
-  >
+  <a-modal v-model:open="open" v-bind="$bind" @ok="handleOk">
     <div class="space-y-4">
       <div class="mb-6 mt-4">
         <p />
@@ -60,12 +69,15 @@ const handleInput = (e: any) => {
       <div class="rounded-lg pb-5 space-y-2">
         <p class="mb-2">
           Please type
-          <!-- <span class="px-3px"> -->
-          <a-typography-text code>{{ clusterInfo.name }}</a-typography-text>
-          <!-- </span> -->
+          <code>{{ clusterInfo.name }}</code>
           to confirm.
         </p>
-        <a-input v-model="verificationName" placeholder="enter the name of the Cache service" @input="handleInput" />
+        <a-input
+          v-model="verificationName"
+          size="large"
+          placeholder="enter the name of the Cache service"
+          @input="handleInput"
+        />
       </div>
     </div>
   </a-modal>

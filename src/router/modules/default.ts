@@ -58,11 +58,11 @@ export const defaultRoutes: RouteRecordRaw[] = [
             name: 'CacheOverview',
             component: () => import('@/pages/cache/over-view/index.vue'),
           },
-          {
-            path: 'shards',
-            name: 'CacheShards',
-            component: () => import('@/pages/cache/shards/index.vue'),
-          },
+          // {
+          //   path: 'shards',
+          //   name: 'CacheShards',
+          //   component: () => import('@/pages/cache/shards/index.vue'),
+          // },
           {
             path: 'connect',
             name: 'CacheConnect',

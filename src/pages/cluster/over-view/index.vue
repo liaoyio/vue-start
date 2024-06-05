@@ -78,7 +78,6 @@ const { data, loading } = useRequest(getClusterById, {
     font-size: 14px;
     margin-top: 8px;
     font-weight: 500;
-    color: rgb(32, 45, 64);
     color: var(--tips-text-color);
   }
 }

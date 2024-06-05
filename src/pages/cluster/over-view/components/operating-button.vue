@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { EllipsisOutlined } from '@ant-design/icons-vue'
-import { type ModalProps, type PopoverProps, message } from 'ant-design-vue'
+import { type ModalProps, message } from 'ant-design-vue'
 import type { Cluster } from '@/types/byoc'
-import type { CSSProperties } from 'vue'
 
 const delOpen = ref(false)
 const delLoading = ref(false)
@@ -34,7 +32,7 @@ const onDelOk = async () => {
 const hasdel = ref(false)
 const handleInput = (e: any) => (hasdel.value = e.target.value === props.info?.name)
 
-const overlayInnerStyle: CSSProperties = {
+/* const overlayInnerStyle: CSSProperties = {
   marginLeft: '12px',
   boxShadow: 'rgba(0, 0, 0, 0.08) 0px 8px 32px',
   padding: '8px',
@@ -49,7 +47,7 @@ const $popover = computed(() => {
     trigger: 'click',
   } as PopoverProps
 })
-
+ */
 const deleteModal = computed(() => {
   return {
     width: 720,
@@ -71,7 +69,7 @@ const deleteModal = computed(() => {
 </script>
 
 <template>
-  <a-button type="primary" class="flex_cc gap-2" danger @click="delOpen = true">
+  <a-button type="primary" class="flex_c2" danger @click="delOpen = true">
     <template #icon>
       <SvgIcon name="delete-tools" size="14" />
     </template>

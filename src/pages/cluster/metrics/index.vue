@@ -113,12 +113,9 @@ function filterOption(x: any, series: any[]) {
           show: true,
           type: 'time',
           margin: 16,
-          color: '#1e324f',
         },
         axisLine: {
-          // show:false,
           lineStyle: {
-            color: 'rgba(39, 76, 129, 0.11)',
             width: 0.5,
           },
         },
@@ -130,7 +127,6 @@ function filterOption(x: any, series: any[]) {
         splitLine: {
           show: true,
           lineStyle: {
-            color: 'rgba(39, 76, 129, 0.11)',
             type: 'dashed',
             width: 0.8,
           },

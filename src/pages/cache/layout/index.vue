@@ -8,10 +8,10 @@ const items: ItemType[] = reactive([
     key: 'overview',
     label: 'Overview',
   },
-  {
-    key: 'shards',
-    label: 'Shards',
-  },
+  // {
+  //   key: 'shards',
+  //   label: 'Shards',
+  // },
   {
     key: 'connect',
     label: 'Connect',
@@ -51,10 +51,6 @@ watch(
   { immediate: true },
 )
 
-console.log('🪝 Setup --> 父路由 Setup \n')
-onMounted(() => {
-  console.log('🪝 onMounted --> 父路由初始化 \n')
-})
 /* 首字母大写 */
 function titleCase(str: string | undefined) {
   if (!str) return
@@ -67,7 +63,7 @@ function titleCase(str: string | undefined) {
     <div class="flex h-full translate-x-0">
       <nav class="sub-nav">
         <div class="flex-initial font-700 overflow-hidden text-ellipsis whitespace-nowrap py-4 px-4.5 line-height-6">
-          <span class="text-base"> Cluster 0 </span>
+          <span class="text-base"> Cache </span>
         </div>
         <div class="py-1 pl-1 pr-2 flex-1 overflow-y-auto">
           <a-menu

@@ -22,13 +22,8 @@ const { data: cluster } = useRequest(getClusterById, {
   defaultParams: [Number(eksClusterId)],
 })
 
-const { data: nodes } = useRequest(getEksNodeGroupResourceList, {
+const { data: nodes, loading: nodeLoading } = useRequest(getEksNodeGroupResourceList, {
   defaultParams: [{ eksClusterId: Number(eksClusterId), isProxy: true }],
-})
-
-const state = reactive<{ selectedRowKeys: any[]; loading: boolean }>({
-  selectedRowKeys: [],
-  loading: false,
 })
 
 const works = computed(() => nodes.value?.list ?? [])
@@ -143,12 +138,10 @@ const workNodeColumns = [
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="pb-2 text-base font-medium text-gray-i">
-      Proxy Node Info
-      <p class="text-12px font-normal text-[#4c576c]">
-        Proxy node is the node for deploying montCache proxy components.
-      </p>
-    </div>
+    <a-card class="mb-2">
+      <h3>Proxy Node Info</h3>
+      <p class="text-sm text-info-4 mt-1">Proxy node is the node for deploying montCache proxy components.</p>
+    </a-card>
 
     <div class="flex flex-row-reverse">
       <div class="flex gap-4">
@@ -162,11 +155,11 @@ const workNodeColumns = [
     </div>
 
     <a-table
+      :loading="nodeLoading"
       :columns="workNodeColumns"
       :data-source="works"
       :pagination="false"
       :row-key="(record) => record.id"
-      :loading="state.loading"
       class="yi-table mt-3"
     >
       <template #bodyCell="{ column, record, text }">
@@ -197,8 +190,8 @@ const workNodeColumns = [
         <!-- Creating/Scaling/Ready -->
         <template v-if="column.key === 'status'">
           <StatusCluster v-if="text === 'Ready'" :status="1" :phase="text" />
-          <span v-else-if="text === 'Scaling'" class="flex_c gap-1.5"> <LoadingLoop /> Scaling </span>
-          <span v-else-if="text === 'Creating'" class="flex_c gap-1.5"> <LoadingLoop /> Creating </span>
+          <span v-else-if="text === 'Scaling'" class="flex_c1.5"> <LoadingLoop /> Scaling </span>
+          <span v-else-if="text === 'Creating'" class="flex_c1.5"> <LoadingLoop /> Creating </span>
           <span v-else> - </span>
         </template>
 

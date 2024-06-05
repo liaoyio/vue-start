@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type FormInstance, notification } from 'ant-design-vue'
+import { type FormInstance, type ModalProps, notification } from 'ant-design-vue'
 import viewLogsButton from './view-logs-button.vue'
 import type { Rule } from 'ant-design-vue/es/form'
 import type { ScaleBody } from '@/api/byoc'
@@ -75,20 +75,37 @@ defineExpose({ open, close, setLoading })
 const rules: Record<string, Rule[]> = {
   instanceNumber: [{ required: true, message: 'Please input current nodes' }],
 }
+
+const $bind = computed(() => {
+  return {
+    width: 720,
+    closable: false,
+    centered: true,
+    okText: 'Confirm',
+    title: 'Scale Node Group',
+    okButtonProps: {
+      size: 'large',
+      loading: loading.value,
+      disabled: oldState.value.instanceNumber === formState.value.instanceNumber,
+    },
+    cancelButtonProps: {
+      size: 'large',
+    },
+  } as ModalProps
+})
 </script>
 
 <template>
-  <a-modal
-    v-model:open="visible"
-    title="Scale Node Group"
-    :ok-button-props="{
-      loading,
-      disabled: oldState.instanceNumber === formState.instanceNumber,
-    }"
-    @ok="onOk"
-    @cancel="close"
-  >
-    <a-form ref="formRef" :rules="rules" :model="formState" autocomplete="off" layout="vertical" class="mt-4">
+  <a-modal v-model:open="visible" v-bind="$bind" @ok="onOk" @cancel="close">
+    <a-form
+      ref="formRef"
+      size="large"
+      :rules="rules"
+      :model="formState"
+      autocomplete="off"
+      layout="vertical"
+      class="mt-4"
+    >
       <a-form-item label="Node Group Name">
         <a-input
           id="error"
@@ -105,9 +122,3 @@ const rules: Record<string, Rule[]> = {
     </a-form>
   </a-modal>
 </template>
-
-<style scoped>
-::v-deep(.ant-form-show-help) {
-  margin-top: 10px;
-}
-</style>
