@@ -1,101 +1,70 @@
 <script setup lang="ts">
-import updateProjectModal from './components/undate.vue'
+import { useRequest } from 'vue-request'
+import { useOrgStore } from '@/store'
+import { formatDate } from '@/utils'
+import { PROJECT_COLUMNS } from '@/utils/const'
+import updateProjectModal from './components/update.vue'
 import inviteUserModal from './components/invite-user.vue'
+
+const columns = ref(PROJECT_COLUMNS)
 
 const addRef = ref<InstanceType<typeof updateProjectModal>>()
 const inviteRef = ref<InstanceType<typeof inviteUserModal>>()
 
-const onUpdate = (data: any) => {
-  console.log(data)
+const orgs = useOrgStore()
+
+const { data, refresh } = useRequest(getProjects, {
+  defaultParams: [orgs.teamId!],
+})
+
+const onUpdate = () => {
+  refresh()
 }
 
 const onRename = (record: any) => {
   addRef.value?.open({ type: 'update', data: { name: record.name, id: record.id } })
 }
-
-const dataSource = ref([
-  {
-    id: 1,
-    name: 'default project',
-    createAt: '2024-05-25 12:42:55',
-    clusterNum: 1,
-    userNum: 1,
-    cmek: 'Disabled',
-  },
-  {
-    id: 2,
-    name: 'Web project',
-    createAt: '2024-05-21 08:42:55',
-    clusterNum: 2,
-    userNum: 3,
-    cmek: '-',
-  },
-  {
-    id: 3,
-    name: 'dev project',
-    createAt: '2024-05-20 11:42:55',
-    clusterNum: 8,
-    userNum: 2,
-    cmek: 'Disabled',
-  },
-])
-
-const columns = [
-  {
-    title: 'Project ID',
-    dataIndex: 'id',
-    key: 'id',
-  },
-  {
-    title: 'Project Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Creation Time',
-    dataIndex: 'createAt',
-    key: 'createAt',
-  },
-  {
-    title: 'Caches',
-    dataIndex: 'clusterNum',
-    key: 'clusterNum',
-  },
-  {
-    title: 'Users ',
-    dataIndex: 'userNum',
-    key: 'userNum',
-  },
-  {
-    title: 'CMEK',
-    dataIndex: 'cmek',
-    key: 'cmek',
-  },
-  {
-    title: 'Actions',
-    key: 'action',
-  },
-]
 </script>
 
 <template>
   <main class="">
     <header class="mt-header my-4">
       <h3>Projects</h3>
-      <a-button type="primary" @click="addRef?.open({ type: 'add' })">Create New Project</a-button>
+      <a-button v-if="data?.isTeamOwner" type="primary" @click="addRef?.open({ type: 'add' })"
+        >Create New Project</a-button
+      >
     </header>
     <section px="6" py="2">
-      <a-table :data-source="dataSource" :columns="columns" :pagination="{ hideOnSinglePage: true }">
+      <!--
+      <div class="text-[#555555] dark:text-[#c6c6c6]">
+      You do not belong to any project.<br />Please contact your
+      <a class="ac-link" href="/org-settings/users">administrator</a> to give you access.
+    </div>
+     -->
+      <a-table :data-source="data?.list" :columns="columns" :pagination="{ hideOnSinglePage: true }">
         <template #bodyCell="{ column, record, text }">
           <template v-if="column.key === 'name'">
             <a class="ac-link" @click="$router.push({ name: 'MontCache' })">{{ text }}</a>
           </template>
 
-          <template v-if="column.key === 'action'">
-            <div class="flex gap-5">
-              <a class="link" @click="onRename(record)">Rename</a>
+          <template v-if="column.key === 'note'">
+            <Tooltip :title="text">
+              <span class="over_text">{{ text }}</span>
+            </Tooltip>
+          </template>
+
+          <template v-if="column.key === 'createdDate'">
+            <Tooltip :title="text">
+              <span class="over_text">{{ formatDate(text) }}</span>
+            </Tooltip>
+          </template>
+
+          <template v-if="column.key === 'actions'">
+            <div v-if="data?.isTeamOwner" class="flex gap-5">
+              <a v-if="false" class="link" @click="onRename(record)">Rename</a>
               <a class="link" @click="inviteRef?.open(record)">Invite</a>
             </div>
+            <div v-else class="">-</div>
           </template>
         </template>
       </a-table>
@@ -106,3 +75,14 @@ const columns = [
   <!-- Invite User -->
   <inviteUserModal ref="inviteRef" />
 </template>
+
+<style lang="scss">
+span.over_text {
+  display: inline-block;
+  width: 80%;
+  /* 这是单行溢出显示...的样式 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>

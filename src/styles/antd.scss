@@ -19,12 +19,17 @@
 
 
 
-li.ant-menu-item .ant-menu-item-icon{
-  svg {
-    font-size: 16px;
-  }
+li.ant-menu-item {
+  display: flex !important;
+  align-items: center !important;
 }
 
+/*
+font-size: 14px; */
+.ant-menu .ant-menu-item .ant-menu-item-icon{
+  min-width: 18px;
+  font-size: 18px;
+}
 
 :root {
   --antd-arrow-bg: #fff;
@@ -105,4 +110,60 @@ li.ant-menu-item .ant-menu-item-icon{
 
 .ant-form-vertical .ant-form-item-label{
   font-weight: 450;
+}
+
+.ant-form-item-extra {
+  font-size: 13px !important;
+    margin-top: 8px;
+}
+
+
+
+.prose {
+	scroll-behavior: smooth;
+}
+
+#nprogress {
+	pointer-events: none;
+}
+
+#nprogress .bar {
+	@apply bg-blue-700 bg-opacity-75;
+
+	background: repeating-linear-gradient(90deg, #00dc82 0, #34cdfe 50%, #0047e1);
+	position: fixed;
+	z-index: 1031;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 2px;
+}
+
+/*
+* 全局滚动条
+*/
+::-webkit-scrollbar {
+	width: 8px;
+	height: 11px;
+	background-color: rgb(246, 247, 248);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgb(233, 236, 239);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: rgb(246, 247, 248);
+	border-radius: 10px;
+}
+
+html.dark ::-webkit-scrollbar,
+html.dark ::-webkit-scrollbar-track {
+	background-color: #1a1b1e;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+	background-color: #212529;
 }

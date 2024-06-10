@@ -178,7 +178,7 @@ export default [
     url: '/engula/fee/org/detail-list-by-day',
     method: 'get',
     response: ({ query }) => {
-      let data = [
+      const data = [
         {
           cacheServiceId: 1,
           cacheServiceName: 'cache-1qs5b6t',
@@ -4212,7 +4212,7 @@ export default [
       ]
       const { cacheServiceId } = query
       if (cacheServiceId) {
-        return data.filter((item) => item.cacheServiceId == cacheServiceId)
+        return data.filter((item) => item.cacheServiceId === cacheServiceId)
       }
       return data
     },

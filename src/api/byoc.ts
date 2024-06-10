@@ -98,14 +98,6 @@ export const setClusterNodeGroup = (data: BYOC.ConfigBody) => {
   })
 }
 
-/** get subnet cidr block list */
-export const getSubnetCidrBlockList = (params: { eksClusterId?: number; zones?: string }) => {
-  return http.get<{ list: string[] }>({
-    url: '/byoc/option/subnet-cidr-block-reserve/list',
-    params,
-  })
-}
-
 /** cluster deploy */
 export const clusterDeploy = (params: { stackId: number }) => {
   return http.get<{ stackId: number }>({

@@ -183,3 +183,12 @@ export function uiRegion(params: string) {
     if (params.includes(key)) return { ...value, dev_code: params }
   }
 }
+export function formatRegion(params: string) {
+  for (const [key, value] of Object.entries(regionsMap)) {
+    if (params.includes(key))
+      return {
+        label: `${value.city} (${params})`,
+        value: params,
+      }
+  }
+}

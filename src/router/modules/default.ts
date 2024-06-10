@@ -38,6 +38,11 @@ export const defaultRoutes: RouteRecordRaw[] = [
     redirect: '/cache',
     children: [
       {
+        path: '/demo',
+        component: () => import('@/pages/demo/index.vue'),
+        name: 'Demos',
+      },
+      {
         path: '/cache',
         component: () => import('@/pages/cache/index.vue'),
         name: 'Caches',
@@ -58,11 +63,6 @@ export const defaultRoutes: RouteRecordRaw[] = [
             name: 'CacheOverview',
             component: () => import('@/pages/cache/over-view/index.vue'),
           },
-          // {
-          //   path: 'shards',
-          //   name: 'CacheShards',
-          //   component: () => import('@/pages/cache/shards/index.vue'),
-          // },
           {
             path: 'connect',
             name: 'CacheConnect',
@@ -80,7 +80,7 @@ export const defaultRoutes: RouteRecordRaw[] = [
           },
           {
             path: 'token',
-            name: 'CacheToken',
+            name: 'CacheTokens',
             component: () => import('@/pages/cache/token/index.vue'),
           },
         ],
@@ -89,6 +89,11 @@ export const defaultRoutes: RouteRecordRaw[] = [
         path: '/cluster',
         component: () => import('@/pages/cluster/index.vue'),
         name: 'Cluster',
+      },
+      {
+        path: '/cluster/add',
+        component: () => import('@/pages/cluster/add/index.vue'),
+        name: 'InitRuntime',
       },
       {
         path: '/cluster/details/:clusterId',
@@ -161,7 +166,7 @@ export const defaultRoutes: RouteRecordRaw[] = [
 
           {
             path: 'resource',
-            name: 'OrgResource',
+            name: 'OrgResourceManage',
             component: () => import('@/pages/org/resource/index.vue'),
           },
           {

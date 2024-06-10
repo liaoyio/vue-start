@@ -1,3 +1,4 @@
+import { SuffixIcon } from '../icon'
 import SvgIcon from './SvgIcon.vue'
 import MenuItem from './Menu-Item.vue'
 
@@ -7,5 +8,6 @@ export default {
   install(Vue: App) {
     Vue.component('SvgIcon', SvgIcon)
     Vue.component('MenuItem', MenuItem)
+    Vue.component('SuffixIcon', SuffixIcon)
   },
 }

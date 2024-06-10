@@ -1,7 +1,8 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios'
 import { Modal, message, notification } from 'ant-design-vue'
-import Cookies from 'js-cookie'
+import { useCookies } from '@vueuse/integrations/useCookies'
 
+const cookies = useCookies(['Auth-Token', 'Auth-Test-User'])
 function showTost(msg: unknown) {
   if (typeof msg === 'string') {
     if (msg.length <= 15) {
@@ -27,8 +28,8 @@ const countDown = () => {
     content: `The user account has expired and will jump to the login page in ${secondsToGo} seconds.`,
     onOk() {
       const BASE_URL = import.meta.env.VITE_API_URL
-      Cookies.remove('Auth-Token')
-      Cookies.remove('Auth-Test-User')
+      cookies.remove('Auth-Token')
+      cookies.remove('Auth-Test-User')
       window.location.replace(`${BASE_URL}/engula/auth0/login`)
     },
   })
@@ -42,8 +43,8 @@ const countDown = () => {
     clearInterval(interval)
     modal.destroy()
     const BASE_URL = import.meta.env.VITE_API_URL
-    Cookies.remove('Auth-Token')
-    Cookies.remove('Auth-Test-User')
+    cookies.remove('Auth-Token')
+    cookies.remove('Auth-Test-User')
     window.location.replace(`${BASE_URL}/engula/auth0/login`)
   }, secondsToGo * 1000)
 }

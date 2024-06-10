@@ -12,5 +12,3 @@
     <path fill="red" d="M0 0h48v48H0z" mask="url(#ixpansion)" />
   </svg>
 </template>
-
-<style lang="scss" scoped></style>

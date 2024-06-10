@@ -1,12 +1,28 @@
 <script setup lang="ts">
-import { useAppStore } from '@/store'
+import { useCookies } from '@vueuse/integrations/useCookies'
+import { useAppStore, useOrgStore, userStore } from '@/store'
 import type { CSSProperties } from 'vue'
 
 const app = useAppStore()
+const store = userStore()
+const org = useOrgStore()
 
 const switchMode = () => {
   app.toggleTheme()
 }
+
+const onOrgSwitch = (teamId: number) => {
+  org.setTeamId(teamId)
+}
+
+const user = computed(() => store?.getInfo)
+const orgs = computed(() => org.orgs)
+
+const isEmail = computed(() => {
+  const res =
+    /^(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Z\\a-z-]+\.)+[A-Za-z]{2,}))$/
+  return user.value?.nickname && res.test(user.value?.nickname)
+})
 
 const collapsed = inject<Ref<boolean>>('collapsed')
 
@@ -18,6 +34,19 @@ const overlayInnerStyle: CSSProperties = {
 
 const router = useRouter()
 const goTo = (name: string) => router.push({ name })
+const cookies = useCookies(['Auth-Token', 'Auth-Test-User'])
+
+const logout = () => {
+  store.user = null
+  localStorage.removeItem('user')
+  cookies.remove('Auth-Token')
+  cookies.remove('Auth-Test-User')
+  if (import.meta.env.MODE === 'development') {
+    router.push({ path: '/', replace: true })
+  } else {
+    window.location.replace(`${import.meta.env.VITE_API_URL}/engula/auth0/logout`)
+  }
+}
 </script>
 
 <template>
@@ -27,16 +56,7 @@ const goTo = (name: string) => router.push({ name })
         <div class="w-55">
           <div>
             <div class="text-[#bbbbbb] dark:text-[#707070] text-xs font-400 px-3 my-2">Projects (click to switch)</div>
-
             <menu-item class="px-3 text-link"> default project </menu-item>
-            <a-divider class="my-2" />
-
-            <menu-item class="px-3">
-              <div class="flex_c2">
-                <SvgIcon name="setting" size="14" />
-                Project Settings
-              </div>
-            </menu-item>
           </div>
         </div>
       </template>
@@ -56,10 +76,18 @@ const goTo = (name: string) => router.push({ name })
               Organizations (click to switch)
             </div>
 
-            <menu-item class="px-3 text-link"> YoaiL's Org </menu-item>
+            <menu-item
+              v-for="it in orgs"
+              :key="it.id"
+              :selected="it.id === org.teamId"
+              class="px-3 text-link"
+              @click="onOrgSwitch(it.id)"
+            >
+              {{ it.name }}
+            </menu-item>
             <a-divider class="my-2" />
 
-            <menu-item class="px-3" @click="goTo('OrgSettings')">
+            <menu-item class="px-3" @click="$router.push({ name: 'OrgSettings' })">
               <div class="flex_c2">
                 <SvgIcon name="setting" size="14" />
                 Organization Settings
@@ -80,8 +108,8 @@ const goTo = (name: string) => router.push({ name })
       <template #content>
         <div class="w-55">
           <div class="flex flex-col items-center p-2 gap-y-1">
-            <div class="font-600 text-lg">YoaiL</div>
-            <div>2417276459@qq.com</div>
+            <div v-if="!isEmail" class="font-600 text-lg">{{ user?.nickname }}</div>
+            <div v-else>{{ user?.nickname }}</div>
           </div>
           <a-divider class="my-2" />
 
@@ -91,7 +119,7 @@ const goTo = (name: string) => router.push({ name })
               Account Settings
             </div>
           </menu-item>
-          <menu-item class="px-3">
+          <menu-item class="px-3" @click="logout">
             <div class="flex_c2">
               <SvgIcon name="logout" size="14" />
               Logout
@@ -115,13 +143,16 @@ const goTo = (name: string) => router.push({ name })
       <template #icon>
         <SvgIcon :name="app.theme === 'dark' ? 'mode-dark' : 'mode-light'" />
       </template>
-      Mode
+      {{ app.theme === 'dark' ? 'Dark' : 'Light' }}
     </a-menu-item>
     <a-menu-item key="5" @click="() => (collapsed = !collapsed)">
       <template #icon>
         <SvgIcon :name="collapsed ? 'sider-menu-open' : 'sider-menu-close'" />
       </template>
-      {{ collapsed ? 'Click to expand menu' : 'Click the collapse menu' }}
+      <template #title>
+        <span> {{ collapsed ? 'Click to expand menu' : 'Click the collapse menu' }}</span>
+      </template>
+      Collapse
     </a-menu-item>
   </a-menu>
 </template>

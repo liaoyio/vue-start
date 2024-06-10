@@ -411,6 +411,7 @@ export default [
   {
     url: '/engula/byoc/option/vpc/list',
     method: 'get',
+    timeout: 900,
     response: () => {
       return {
         list: [
@@ -449,15 +450,6 @@ export default [
     response: () => {
       return {
         eksClusterId: 0,
-      }
-    },
-  },
-  {
-    url: '/engula/byoc/option/subnet-cidr-block-reserve/list',
-    method: 'get',
-    response: () => {
-      return {
-        list: ['10.1.20.0/22', '10.1.24.0/22'],
       }
     },
   },

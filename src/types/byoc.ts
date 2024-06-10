@@ -4,6 +4,16 @@ export interface Region {
   name: string
 }
 
+export type ClusterBasic = {
+  name: string
+  region: string
+  clusterVersion: string
+  s3Bucket: string
+  vpcId: string
+  vpcCidrBlock: string
+  eksClusterId: number
+}
+
 /** get zone list by region */
 export interface Zone {
   name: string
@@ -44,8 +54,6 @@ export interface Config {
   s3Bucket: string
   vpcCidrBlock: string
   clusterVersion: string
-  /** CIDR 已废弃  */
-  // subnetCidrBlock: string
   /** 10 -> public, 1 -> private, 0 -> private with nat */
   subnetPrivateType: 10 | 1 | 0
   vpcIndex?: number

@@ -47,7 +47,7 @@ const {
     /** 总页数 */
     totalPageKey: 'totalPage',
   },
-  pollingInterval: 30000,
+  pollingInterval: 4000,
 })
 
 const pagination = computed(() => ({
@@ -127,7 +127,7 @@ const columns = [
 </script>
 
 <template>
-  <div class="flex justify-between px-8 py-6">
+  <div class="mt-header my-2">
     <div class="text-xl font-medium text-gray-i">Montplex Cache</div>
     <div class="flex gap-4">
       <a-button type="primary" class="items-center !flex" @click="handleCreateCache">
@@ -139,7 +139,7 @@ const columns = [
     </div>
   </div>
 
-  <div class="p-8 pt-0">
+  <div class="p-6 pt-0">
     <div class="mb-6 mt-4 flex justify-between gap-6">
       <a-space :size="['middle', 'middle']">
         <a-input

@@ -10,16 +10,13 @@ html {
 ::-webkit-scrollbar {
 	width: 8px;
 	height: 11px;
-	/* background-color: rgb(246, 247, 248); */
 }
 
 ::-webkit-scrollbar-thumb {
-	/* background-color: rgb(233, 236, 239); */
 	border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-	/* background-color: rgb(246, 247, 248); */
 	border-radius: 10px;
 }
 
@@ -106,10 +103,10 @@ p {
 }
 
 .link {
-  color: rgb(12, 166, 242) !important;
+  color: #0ca6f2 !important;
 
   &:hover {
-    color: rgb(12, 166, 242) !important;
+    color: #0ca6f2 !important;
   }
 }
 
@@ -150,6 +147,21 @@ a.ac-link {
   padding-right: 24px;
   padding-left: 24px;
   height: 56px;
+}
+.mt-footer {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  z-index: 99;
+  bottom: 0;
+  left: 0px;
+  padding-right: 24px;
+  padding-left: 24px;
+  min-height: 56px;
+  border-top: 1px solid var(--sider-nav-border);
+
 }
 
 .bento-card {
@@ -200,3 +212,4 @@ code.c {
       background: rgb(41, 41, 41);
     }
 }
+

@@ -3,7 +3,7 @@ import { Modal, message } from 'ant-design-vue'
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { getRegionZoneList } from '@/api'
 import { CloudProvider } from '@/components/form'
-import { uiRegion } from '@/utils/regions'
+import { uiRegion } from '@/utils/const'
 import { BaseInfo, BusiGroup, Memory, Region, Zones } from './from'
 
 import type { NewCacheBody, RegionZone } from '@/types/cache'

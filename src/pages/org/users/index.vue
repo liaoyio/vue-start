@@ -1,52 +1,67 @@
 <script setup lang="ts">
 import { SearchOutlined } from '@ant-design/icons-vue'
 import { theme } from 'ant-design-vue'
+import { useDebounceFn } from '@vueuse/core'
+import { useOrgStore } from '@/store'
+
 import InviteByOrg from './invite.vue'
 import InviteByProject from './invite-user.vue'
+import type { Member } from '@/api/org'
+
+const filterState = reactive({
+  by: 1,
+  q: '',
+  /** 项目 id */
+  busiGroupId: undefined,
+})
+
 const { token } = theme.useToken()
+const orgs = useOrgStore()
 
 const orgRef = ref<InstanceType<typeof InviteByOrg>>()
 const projectRef = ref<InstanceType<typeof InviteByProject>>()
 
+const dataSource = ref<Member[]>([])
+
+const initDataSource = async () => {
+  if (filterState.by === 1) {
+    const { list } = await getOrgMembers({ teamId: orgs.teamId!, q: filterState.q })
+    dataSource.value = list
+  } else {
+    const { list } = await getProjectMembers({
+      busiGroupId: filterState.busiGroupId ?? orgs.busiGroupId!,
+      q: filterState.q,
+    })
+    dataSource.value = list
+  }
+}
+
+const debouncedFn = useDebounceFn(() => {
+  initDataSource()
+}, 500)
+
+const handleInput = () => {
+  debouncedFn()
+}
+
+const changeBy = () => {
+  initDataSource()
+}
+
 const onInvite = () => {
-  if (filterState.by === 'By Project') {
+  if (filterState.by === 2) {
     projectRef.value?.open('')
   } else {
     orgRef.value?.open()
   }
 }
-const filterState = reactive({
-  by: 'By Organization',
-  userName: '',
-  projectName: 'default project',
-})
 
-const dataSource = ref([
-  {
-    id: 1,
-    email: 'a2417276458@gmail.com',
-    role: 'Organization Member',
-    createAt: '2024-05-25 12:42:55',
-    status: 'ACTIVE',
-    lastLoginAt: '2024-05-25 12:42:55',
-  },
-  {
-    id: 2,
-    email: 'szy2012@gmail.com',
-    role: 'Organization Billing Admin',
-    createAt: '2024-05-25 12:42:55',
-    status: 'ACTIVE',
-    lastLoginAt: '2024-05-25 12:42:55',
-  },
-  {
-    id: 3,
-    email: 'liaoyi2016@163.com',
-    role: 'Organization Member',
-    createAt: '2024-05-25 12:42:55',
-    status: 'PENDING',
-    lastLoginAt: '2024-05-25 12:42:55',
-  },
-])
+initDataSource()
+console.log('dataSource', dataSource)
+const options = [
+  { value: 1, payload: { title: 'By Organization' } },
+  { value: 2, payload: { title: 'By Project' } },
+]
 
 const columns = [
   {
@@ -61,8 +76,8 @@ const columns = [
   },
   {
     title: 'Invite Time',
-    dataIndex: 'createAt',
-    key: 'createAt',
+    dataIndex: 'inviteDate',
+    key: 'inviteDate',
   },
   {
     title: 'Status',
@@ -71,8 +86,8 @@ const columns = [
   },
   {
     title: 'Last Login Time',
-    dataIndex: 'lastLoginAt',
-    key: 'lastLoginAt',
+    dataIndex: 'lastLoginDate',
+    key: 'lastLoginDate',
   },
   {
     title: 'Actions',
@@ -96,22 +111,33 @@ const columns = [
             size="large"
             class="w-[300px]"
             block
-            :options="['By Organization', 'By Project']"
-          />
+            :options="options"
+            @change="changeBy"
+          >
+            <template #label="{ payload }">
+              {{ payload.title }}
+            </template>
+          </a-segmented>
 
           <a-select
-            v-show="filterState.by === 'By Project'"
-            v-model:value="filterState.projectName"
+            v-show="filterState.by === 2"
+            v-model:value="filterState.busiGroupId"
             size="large"
             class="w-[224px]"
           >
-            <a-select-option v-for="it in ['default project']" :key="it" :value="it">{{ it }}</a-select-option>
+            <a-select-option v-for="it in orgs.projects" :key="it.id" :value="it.id">{{ it.name }}</a-select-option>
             <template #suffixIcon>
               <SvgIcon name="select-suffix" />
             </template>
           </a-select>
 
-          <a-input v-model:value="filterState.userName" size="large" class="w-[224px]" placeholder="Search User">
+          <a-input
+            v-model:value="filterState.q"
+            size="large"
+            class="w-[224px]"
+            placeholder="Search User"
+            @input="handleInput"
+          >
             <template #suffix>
               <SearchOutlined :style="{ color: token.colorIcon }" />
             </template>
@@ -120,7 +146,13 @@ const columns = [
       </div>
 
       <a-table :data-source="dataSource" :columns="columns" :pagination="{ hideOnSinglePage: true }">
-        <template #bodyCell="{ column }">
+        <template #bodyCell="{ column, text }">
+          <template v-if="column.key === 'status'">
+            <div>
+              {{ text === 1 ? 'ACTIVE' : 'INACTIVE' }}
+            </div>
+          </template>
+
           <template v-if="column.key === 'action'">
             <div class="flex gap-5">
               <span>-</span>

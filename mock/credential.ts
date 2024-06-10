@@ -6,7 +6,7 @@ export default [
     timeout: 900,
     response: () => {
       return {
-        'list|3-5': [
+        'list|0-3': [
           {
             'id|+1': 1,
             'cloudProvider|1': ['aws', 'azure', 'alibaba'],
@@ -92,6 +92,7 @@ aws iam get-role --role-name CreateMontCache-Role --output text  --query Role.Ar
   {
     url: '/engula/byoc/credential/init',
     method: 'put',
+    timeout: 1400,
     response: ({ body }) => {
       if (body.credentialId) {
         return { eksClusterId: 12 }

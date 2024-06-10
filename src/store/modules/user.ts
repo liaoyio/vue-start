@@ -3,6 +3,10 @@ import { type IUserInfo, userInfo } from '@/api'
 
 type User = {
   user: null | IUserInfo
+  /** org id */
+  teamId?: number
+  /** project id */
+  busiGroupId?: number
 }
 export const userStore = defineStore('userStore', {
   state: (): User => ({

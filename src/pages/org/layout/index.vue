@@ -1,66 +1,24 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import type { ItemType, MenuProps } from 'ant-design-vue'
+import { ORG_SETTING_MENUS } from '@/utils/const'
+import type { MenuProps } from 'ant-design-vue'
 
-const activeRoute = ref<string[]>(['overview'])
+const route = useRoute()
+const router = useRouter()
 
-const items: ItemType[] = reactive([
-  {
-    key: 'general',
-    label: 'General',
-  },
-  {
-    key: 'projects',
-    label: 'Projects',
-  },
-  {
-    key: 'users',
-    label: 'Users',
-  },
-  {
-    key: 'resource',
-    label: 'Resource Manage',
-  },
-  {
-    key: 'security',
-    label: 'Security',
-  },
-  {
-    key: 'config',
-    label: 'Configuration',
-  },
-])
+const activeRoute = ref<string[]>(['OrgGeneral'])
 
 const handleClick: MenuProps['onClick'] = ({ key }) => {
   activeRoute.value = [key as string]
-  router.replace({ name: `Org${titleCase(key as string)}` })
+  router.replace({ name: key as string })
 }
 
-const router = useRouter()
-
-// const route = useRoute()
-// const id = route.params.id as any
-
-/* 监听路由变化,切换子路由页面时保持tab选中状态 */
 watch(
-  () => router.currentRoute.value.path,
-  ($new: string) => {
-    const pathStr = $new.split('/').pop()
-    activeRoute.value = [pathStr as string]
-    // await store.setOneCache(id)
+  () => route.name,
+  ($new) => {
+    activeRoute.value = [$new as string]
   },
   { immediate: true },
 )
-
-console.log('🪝 Setup --> 父路由 Setup \n')
-onMounted(() => {
-  console.log('🪝 onMounted --> 父路由初始化 \n')
-})
-/* 首字母大写 */
-function titleCase(str: string | undefined) {
-  if (!str) return
-  return str.toLowerCase().replaceAll(/( |^)[a-z]/g, (L) => L.toUpperCase())
-}
 </script>
 
 <template>
@@ -75,7 +33,7 @@ function titleCase(str: string | undefined) {
             id="sub-nav"
             v-model:selectedKeys="activeRoute"
             mode="inline"
-            :items="items"
+            :items="ORG_SETTING_MENUS"
             class="bg-transparent !border-none"
             @click="handleClick"
           />

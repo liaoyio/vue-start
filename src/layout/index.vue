@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconCluster from '@/assets/icons/menu-cluster.svg?component'
 import IconService from '@/assets/icons/menu-data-service.svg?component'
+import IconPlay from '@/assets/icons/menu-play.svg?component'
 import SiderButtom from './components/Sider-Antd.vue'
 import type { MenuClickEventHandler } from 'ant-design-vue/es/menu/src/interface'
 const router = useRouter()
@@ -16,7 +17,7 @@ const handelMenuChange: MenuClickEventHandler = ({ key }) => {
   router.push(`/${key}`)
 }
 
-const items = reactive([
+let items = reactive([
   {
     key: 'cache',
     icon: () => h(IconService),
@@ -30,6 +31,18 @@ const items = reactive([
     title: 'Cluster',
   },
 ])
+
+if (import.meta.env.VITE_NODE_ENV !== 'development') {
+  items = [
+    ...items,
+    {
+      key: 'demo',
+      icon: () => h(IconPlay),
+      label: 'Demos',
+      title: 'Demos',
+    },
+  ]
+}
 
 provide('collapsed', collapsed)
 </script>
